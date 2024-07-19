@@ -29,7 +29,19 @@ body {
         @apply min-h-[calc(100vh-90px)]
     }
 
+    .page-full {
+        @apply h-[100vh]
+    }
+
     .action-button {
         @apply bg-bg rounded-lg h-full w-[60px] fc mr-[10px]
+    }
+
+    .gradient {
+        @apply bg-[#d8b5ff] bg-gradient-to-br from-[#d8b5ff] to-[#1eae98]
+    }
+
+    .darkgradient {
+        @apply bg-[#a390c6] bg-gradient-to-br from-[#a390c6] to-[#197b6d]
     }
 }

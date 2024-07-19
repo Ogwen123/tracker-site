@@ -6,12 +6,14 @@ import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } 
 import Home from './components/home/Home.tsx'
 import Login from './components/login/Login.tsx'
 import NotFound from './components/NotFound.tsx'
+import Register from './components/register/Register.tsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
       <Route index element={<Home />} />
       <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
       <Route path="*" element={<NotFound />} />
     </Route>
   )
