@@ -1,8 +1,12 @@
 import React from 'react'
+import { useData } from '../../App'
 
 const Home = () => {
+
+    const { user } = useData()
+
     return (
-        <div>Home</div>
+        <div>Home {user !== undefined ? "logged in" : "not logged in"}</div>
     )
 }
 

@@ -44,4 +44,12 @@ body {
     .darkgradient {
         @apply bg-[#a390c6] bg-gradient-to-br from-[#a390c6] to-[#197b6d]
     }
+
+    .gradienttext {
+        @apply bg-gradient-to-r from-[#d8b5ff] to-[#1eae98] text-transparent bg-clip-text
+    }
+
+    .shadow-3xl {
+        box-shadow: 40px 40px 40px 40px rgb(0 0 0 / 0.35);
+    }
 }

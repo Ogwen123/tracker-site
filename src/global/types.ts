@@ -3,5 +3,8 @@ export type User = {
 }
 
 export type AppOutletContext = {
-    user: User
+    user: User,
+    width: number
 }
+
+export type _Alert = [string | [string, string], "SUCCESS" | "ERROR", boolean]
