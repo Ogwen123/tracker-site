@@ -6,11 +6,12 @@ import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } 
 import Home from './components/home/Home.tsx'
 import Login from './components/login/Login.tsx'
 import NotFound from './components/NotFound.tsx'
+import Error from './components/Error.tsx'
 import Register from './components/register/Register.tsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<App />}>
+    <Route path="/" element={<App />} errorElement={<Error />}>
       <Route index element={<Home />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />

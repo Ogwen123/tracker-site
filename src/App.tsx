@@ -17,14 +17,19 @@ const App = () => {
     })
 
     React.useEffect(() => {
-        const userData = localStorage.getItem("token")
+        let token = localStorage.getItem("token")
+        let userData
+        const userDataRaw = localStorage.getItem("userData")
+        console.log(userDataRaw)
+        if (userDataRaw === null) token = null
+        else userData = JSON.parse(userDataRaw)
 
-        if (userData === null) {
+        if (token === null) {
             if (!publicPaths.includes(location.pathname)) {
                 location.href = "/login"
             }
         } else {
-            setUser({ token: userData })
+            setUser({ token: token, username: userData.username, name: userData.name })
             if (disabledWhenLoggedIn.includes(location.pathname)) {
                 location.href = "/"
             }
@@ -34,8 +39,10 @@ const App = () => {
     return (
         <div className='min-h-[100vh] overflow-hidden'>
             {
-                !navBarExempt.includes(location.pathname) &&
-                <NavigationBar />
+                !navBarExempt.includes(location.pathname) ?
+                    <NavigationBar context={{ user, width }} />
+                    :
+                    <div></div>
             }
             <Outlet context={{ user, width }} />
         </div>

@@ -50,6 +50,6 @@ body {
     }
 
     .shadow-3xl {
-        box-shadow: 40px 40px 40px 40px rgb(0 0 0 / 0.35);
+        box-shadow: 0 0 10px 10px rgb(0 0 0 / 0.15);
     }
 }

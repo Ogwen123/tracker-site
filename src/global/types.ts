@@ -1,9 +1,16 @@
 export type User = {
-    token: string
+    token: string,
+    username: string,
+    name: string
 }
 
 export type AppOutletContext = {
     user: User,
+    width: number
+}
+
+export type NavigationBarContext = {
+    user: User | undefined,
     width: number
 }
 
