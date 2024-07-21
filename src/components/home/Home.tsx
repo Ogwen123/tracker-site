@@ -2,8 +2,8 @@ import React from 'react'
 import { useData } from '../../App'
 import { BookmarkIcon } from '@heroicons/react/20/solid'
 import { Task } from '../../global/types'
-import LoadingCard from '../tasks/LoadingCard'
 import LoadingPinnedCard from './LoadingPinnedCard'
+import { Link } from 'react-router-dom'
 
 const Home = () => {
 
@@ -35,8 +35,9 @@ const Home = () => {
                                             :
                                             pinnedTasks.length === 0 ?
                                                 <div className='border border-solid border-hr rounded-md fc flex-col text-lg flex-grow p-[10px]'>
-                                                    <BookmarkIcon className='size-20 fill-yellow-300' />
-                                                    When you pin a task it will appear here
+                                                    <BookmarkIcon className='size-20 fill-yellow-300 mb-[20px]' />
+                                                    <div className='w-[60%] text-center'>Pinned tasks will appear here. You can pin tasks from the tasks page.</div>
+                                                    <Link to="/tasks" className="underline mt-[20px] text-hyperlink">Go to tasks</Link>
                                                 </div>
                                                 :
                                                 <div className='border border-solid border-hr rounded-md fc flex-col text-lg flex-grow p-[10px] overflow-y-auto'>

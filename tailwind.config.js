@@ -7,7 +7,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        "bg": "#343b46",
+        "bg": "#22272e",
         "bgdark": "#1c2128",
         "main": "#009788",
         "maindark": "#00645a",
@@ -21,7 +21,8 @@ export default {
         "hr": "#444c56",
         "hrdark": "#292e36",
         "subtext": "#f4f4f4",
-        "admin": "#2563eb"
+        "admin": "#2563eb",
+        "hyperlink": "#57aeff"
       },
     },
   },
