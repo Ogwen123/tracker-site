@@ -8,6 +8,12 @@ import Login from './components/login/Login.tsx'
 import NotFound from './components/NotFound.tsx'
 import Error from './components/Error.tsx'
 import Register from './components/register/Register.tsx'
+import Tasks from './components/tasks/Tasks.tsx'
+import Dashboard from './dashboard/Dashboard.tsx'
+
+export const navBarExempt = ["/login"]
+export const publicPaths = ["/login", "/register", "/", ""]
+export const disabledWhenLoggedIn = ["/login", "/register"]
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -15,6 +21,8 @@ const router = createBrowserRouter(
       <Route index element={<Home />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
+      <Route path="/tasks" element={<Tasks />} />
+      <Route path="/dashboard" element={<Dashboard />} />
       <Route path="*" element={<NotFound />} />
     </Route>
   )

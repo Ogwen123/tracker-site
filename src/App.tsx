@@ -2,10 +2,7 @@ import React from 'react'
 import { User, AppOutletContext } from './global/types'
 import { useOutletContext, Outlet } from 'react-router-dom'
 import NavigationBar from './components/NavigationBar'
-
-export const navBarExempt = ["/login"]
-export const publicPaths = ["/login", "/register", "/", ""]
-export const disabledWhenLoggedIn = ["/login", "/register"]
+import { publicPaths, disabledWhenLoggedIn, navBarExempt } from './main'
 
 const App = () => {
 

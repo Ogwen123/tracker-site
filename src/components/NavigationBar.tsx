@@ -1,6 +1,6 @@
 import React from "react"
 
-import { ArrowLeftEndOnRectangleIcon, ArrowRightEndOnRectangleIcon, ClipboardIcon, PencilIcon, UserCircleIcon } from "@heroicons/react/20/solid"
+import { ArrowLeftEndOnRectangleIcon, ArrowRightEndOnRectangleIcon, ClipboardIcon, CommandLineIcon, UserCircleIcon } from "@heroicons/react/20/solid"
 import { NavigationBarContext } from "../global/types"
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react"
 import { Link } from "react-router-dom"
@@ -29,6 +29,7 @@ const NavigationBar = ({ context }: NavigationBarProps) => {
         }).then((res) => {
             if (res.ok) {
                 localStorage.removeItem("token")
+                localStorage.removeItem("userData")
                 location.href = "/login"
                 setLoggingOut(false)
             }
@@ -38,13 +39,17 @@ const NavigationBar = ({ context }: NavigationBarProps) => {
     }
 
     return (
-        <div className='flex px-[20px] items-center h-[90px] bg-bgdark text-2xl'>
+        <div className='flex px-[20px] items-center h-[90px] bg-bgdark'>
             <a href="/" className="h-full">
                 <div className='bg-[#D8B5FF] bg-gradient-to-br from-[#D8B5FF] to-[#1EAE98] text-transparent bg-clip-text text-5xl h-full flex items-center'>
                     Tracker
                 </div>
             </a>
             <div className="flex-grow"></div>
+            <Link to="/tasks">
+                View your tasks
+            </Link>
+            <div className="w-[1px] bg-hr h-[30px] mx-[10px]"></div>
             <Menu>
                 <MenuButton className="size-[40px]">
                     <UserCircleIcon />
@@ -87,10 +92,10 @@ const NavigationBar = ({ context }: NavigationBarProps) => {
                                 </MenuItem>
                                 <div className="m-[5px] h-px bg-hr" />
                                 <MenuItem>
-                                    <button className="group flex w-full items-center gap-2 rounded-lg py-1.5 px-3 data-[focus]:bg-white/10">
-                                        <PencilIcon className="size-4" />
+                                    <Link to="/dashboard" className="group flex w-full items-center gap-2 rounded-lg py-1.5 px-3 data-[focus]:bg-white/10">
+                                        <CommandLineIcon className="size-4" />
                                         Dashboard
-                                    </button>
+                                    </Link>
                                 </MenuItem>
                                 <MenuItem>
                                     <button onClick={() => logout()} className="group flex w-full items-center gap-2 rounded-lg py-1.5 px-3 data-[focus]:bg-white/10">

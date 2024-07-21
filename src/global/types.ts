@@ -15,3 +15,7 @@ export type NavigationBarContext = {
 }
 
 export type _Alert = [string | [string, string], "SUCCESS" | "ERROR", boolean]
+
+export type Task = {
+
+}
