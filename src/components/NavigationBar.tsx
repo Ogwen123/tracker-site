@@ -49,7 +49,7 @@ const NavigationBar = ({ context }: NavigationBarProps) => {
             {
                 context.user &&
                 <div className="flex">
-                    <Link reloadDocument to="/tasks">
+                    <Link reloadDocument to="/tasks" className="flex items-center">
                         View your tasks
                     </Link>
                     <div className="w-[1px] bg-hr h-[30px] mx-[10px]"></div>

@@ -93,7 +93,7 @@ const Login = () => {
                 }
                 <input
                     type='text'
-                    className='rounded-md bg-bgdark m-[5px] w-[80%] min-w-[300px] p-[10px]'
+                    className='form-input w-[80%] min-w-[300px]'
                     placeholder='Username or Email'
                     value={identifier}
                     onChange={(e) => setIdentifier(e.target.value)}
@@ -105,7 +105,7 @@ const Login = () => {
                 />
                 <input
                     type='password'
-                    className='rounded-md bg-bgdark m-[5px] w-[80%] min-w-[300px] p-[10px]'
+                    className='form-input w-[80%] min-w-[300px]'
                     placeholder='Password'
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
