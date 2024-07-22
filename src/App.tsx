@@ -51,7 +51,7 @@ const App = () => {
                     :
                     <div></div>
             }
-            <div className={!navBarExempt.includes(location.pathname) ? 'p-[10px]' : ""}>
+            <div>
                 <Outlet context={{ user, width }} />
             </div>
         </div>
