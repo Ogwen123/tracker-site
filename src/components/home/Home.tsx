@@ -1,9 +1,12 @@
 import React from 'react'
 import { useData } from '../../App'
 import { ArrowRightEndOnRectangleIcon, BoltIcon, BookmarkIcon, PlusIcon } from '@heroicons/react/20/solid'
-import { Task } from '../../global/types'
+import { _Alert, Task } from '../../global/types'
 import LoadingPinnedCard from './LoadingPinnedCard'
 import { Link } from 'react-router-dom'
+import { url } from '../../utils/url'
+import LoadingWheel from '../LoadingWheel'
+import Alert, { alertReset } from '../Alert'
 
 const Home = () => {
 
@@ -11,8 +14,45 @@ const Home = () => {
 
     const [pinnedTasks, setPinnedTasks] = React.useState<Task[]>()
 
+    const [loggingOut, setLoggingOut] = React.useState<boolean>(false)
+    const [alert, setAlert] = React.useState<_Alert>(["Alert", "ERROR", false])
+
+    const logout = () => {
+        if (user === undefined) return
+        setLoggingOut(true)
+        fetch(url("auth") + "logout", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                token: user.token
+            })
+        }).then((res) => {
+            if (res.ok) {
+                localStorage.removeItem("token")
+                localStorage.removeItem("userData")
+                location.href = "/login"
+                setLoggingOut(false)
+            }
+        }).catch(() => {
+            setLoggingOut(false)
+            setAlert(["Logging out failed as a connection to the server could not be made.", "ERROR", true])
+            setTimeout(() => {
+                setAlert(alertReset)
+            }, 5000)
+        })
+    }
+
     return (
         <div className='fc flex-col'>
+            <Alert
+                content={alert[0] instanceof Array ? alert[0][1] : alert[0]}
+                severity={alert[1]}
+                show={alert[2]}
+                title={alert[0] instanceof Array ? alert[0][0] : undefined}
+                width="80%"
+            />
             {
                 user ?
                     <div className='w-[80%] h-[80%]'>
@@ -58,6 +98,9 @@ const Home = () => {
                                             <div className='border-t-[3px] flex-grow border-dotted border-hr mx-[20px]'></div>
                                             <button
                                                 className='bg-main h-[40px] rounded-md min-w-[50px] fc mr-[10px] px-[10px]'
+                                                onClick={() => {
+                                                    location.href = "/task/new"
+                                                }}
                                             >
                                                 <PlusIcon className='size-7' /> {width > 800 && "Add task"}
                                             </button>
@@ -67,8 +110,12 @@ const Home = () => {
                                             <div className='border-t-[3px] flex-grow border-dotted border-hr mx-[20px]'></div>
                                             <button
                                                 className='bg-warning h-[40px] rounded-md min-w-[50px] fc mr-[10px] px-[10px]'
+                                                onClick={(e) => logout()}
                                             >
-                                                <ArrowRightEndOnRectangleIcon className='size-7' /> {width > 800 && "Logout"}
+                                                <div className='mr-[5px]'>
+                                                    {loggingOut ? <LoadingWheel size={20} /> : <ArrowRightEndOnRectangleIcon className='size-7' />}
+                                                </div>
+                                                {width > 800 && "Logout"}
                                             </button>
                                         </div>
                                     </div>
