@@ -37,7 +37,7 @@ const Home = () => {
                                                 <div className='border border-solid border-hr rounded-md fc flex-col text-lg flex-grow p-[10px]'>
                                                     <BookmarkIcon className='size-20 fill-yellow-300 mb-[20px]' />
                                                     <div className='w-[60%] text-center'>Pinned tasks will appear here. You can pin tasks from the tasks page.</div>
-                                                    <Link to="/tasks" className="underline mt-[20px] text-hyperlink">Go to tasks</Link>
+                                                    <Link to="/tasks" reloadDocument className="underline mt-[20px] text-hyperlink">Go to tasks</Link>
                                                 </div>
                                                 :
                                                 <div className='border border-solid border-hr rounded-md fc flex-col text-lg flex-grow p-[10px] overflow-y-auto'>

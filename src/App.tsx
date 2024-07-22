@@ -14,19 +14,29 @@ const App = () => {
     })
 
     React.useEffect(() => {
-        let token = localStorage.getItem("token")
-        let userData
-        const userDataRaw = localStorage.getItem("userData")
-        console.log(userDataRaw)
-        if (userDataRaw === null) token = null
-        else userData = JSON.parse(userDataRaw)
+        if (user === undefined) {
+            let token = localStorage.getItem("token")
+            let userData
+            const userDataRaw = localStorage.getItem("userData")
+            console.log(userDataRaw)
+            if (userDataRaw === null) token = null
+            else userData = JSON.parse(userDataRaw)
 
-        if (token === null) {
-            if (!publicPaths.includes(location.pathname)) {
-                location.href = "/login"
+            console.log(token)
+
+            if (token === null) {
+                console.log(location.pathname)
+                console.log(publicPaths.includes(location.pathname))
+                if (!publicPaths.includes(location.pathname)) {
+                    location.href = "/login"
+                }
+            } else {
+                setUser({ token: token, username: userData.username, name: userData.name })
+                if (disabledWhenLoggedIn.includes(location.pathname)) {
+                    location.href = "/"
+                }
             }
         } else {
-            setUser({ token: token, username: userData.username, name: userData.name })
             if (disabledWhenLoggedIn.includes(location.pathname)) {
                 location.href = "/"
             }
@@ -34,7 +44,7 @@ const App = () => {
     }, [])
 
     return (
-        <div className='min-h-[100vh] overflow-hidden'>
+        <div className='min-h-[100vh]'>
             {
                 !navBarExempt.includes(location.pathname) ?
                     <NavigationBar context={{ user, width }} />

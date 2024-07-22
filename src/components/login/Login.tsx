@@ -60,11 +60,11 @@ const Login = () => {
                     <a href="/" className='text-7xl font-semibold'>
                         Tracker
                     </a>
-                    <div className='text-subtext flex flex-col items-center my-[40px]'>
+                    <div className='text-white/90 flex flex-col items-center my-[40px]'>
                         <div>
                             Login to an existing account or
                         </div>
-                        <Link reloadDocument={true} to="/register">
+                        <Link reloadDocument to="/register">
                             <button className='bg-bgdark rounded-full p-[10px] m-[5px] w-[235px]'>
                                 Sign Up
                             </button>
@@ -73,7 +73,7 @@ const Login = () => {
                     </div>
                 </div>
             }
-            <div className={'w-[calc(40%-40px)] min-w-[320px]  bg-bg bg-opacity-90 border border-white/5 rounded-md shadow-3xl flex flex-col items-center justify-center pb-[80px]' + (width > 650 ? " h-[calc(100%-40px)] m-[20px]" : " h-[60%]")}>
+            <div className={'w-[calc(40%-40px)] min-w-[320px] bg-bg bg-opacity-90 border border-white/5 rounded-md shadow-3xl flex flex-col items-center justify-center pb-[80px]' + (width > 650 ? " h-[calc(100%-40px)] m-[20px]" : " h-[60%]")}>
                 <Alert
                     content={alert[0] instanceof Array ? alert[0][1] : alert[0]}
                     severity={alert[1]}
@@ -83,9 +83,9 @@ const Login = () => {
                 />
                 {
                     width <= 650 ?
-                        <div className='gradienttext my-[60px] text-center text-4xl'>
+                        <a href="/" className='gradienttext my-[60px] text-center text-4xl'>
                             Tracker
-                        </div>
+                        </a>
                         :
                         <div className='my-[60px] text-center text-4xl'>
                             Login

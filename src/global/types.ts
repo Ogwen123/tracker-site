@@ -19,3 +19,11 @@ export type _Alert = [string | [string, string], "SUCCESS" | "ERROR", boolean]
 export type Task = {
 
 }
+
+export type Details = {
+    firstname: string,
+    lastname: string,
+    username: string,
+    email: string,
+    password: string
+}

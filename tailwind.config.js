@@ -20,7 +20,7 @@ export default {
         "warningdark": "#ab5e1a",
         "hr": "#444c56",
         "hrdark": "#292e36",
-        "subtext": "#f4f4f4",
+        "subtext": "#bebebe",
         "admin": "#2563eb",
         "hyperlink": "#57aeff"
       },

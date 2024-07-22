@@ -46,10 +46,16 @@ const NavigationBar = ({ context }: NavigationBarProps) => {
                 </div>
             </a>
             <div className="flex-grow"></div>
-            <Link to="/tasks">
-                View your tasks
-            </Link>
-            <div className="w-[1px] bg-hr h-[30px] mx-[10px]"></div>
+            {
+                context.user &&
+                <div className="flex">
+                    <Link reloadDocument to="/tasks">
+                        View your tasks
+                    </Link>
+                    <div className="w-[1px] bg-hr h-[30px] mx-[10px]"></div>
+                </div>
+            }
+
             <Menu>
                 <MenuButton className="size-[40px]">
                     <UserCircleIcon />
@@ -70,13 +76,13 @@ const NavigationBar = ({ context }: NavigationBarProps) => {
                                 </MenuItem>
                                 <div className="m-[5px] h-px bg-hr" />
                                 <MenuItem>
-                                    <Link reloadDocument={true} to="/login" className="group flex w-full items-center gap-2 rounded-md py-1.5 px-3 data-[focus]:bg-white/10">
+                                    <Link reloadDocument to="/login" className="group flex w-full items-center gap-2 rounded-md py-1.5 px-3 data-[focus]:bg-white/10">
                                         <ArrowLeftEndOnRectangleIcon className="size-4" />
                                         Login
                                     </Link>
                                 </MenuItem>
                                 <MenuItem>
-                                    <Link reloadDocument={true} to="/register" className="group flex w-full items-center gap-2 rounded-md py-1.5 px-3 data-[focus]:bg-white/10">
+                                    <Link reloadDocument to="/register" className="group flex w-full items-center gap-2 rounded-md py-1.5 px-3 data-[focus]:bg-white/10">
                                         <ClipboardIcon className="size-4" />
                                         Register
                                     </Link>
@@ -92,7 +98,7 @@ const NavigationBar = ({ context }: NavigationBarProps) => {
                                 </MenuItem>
                                 <div className="m-[5px] h-px bg-hr" />
                                 <MenuItem>
-                                    <Link to="/dashboard" className="group flex w-full items-center gap-2 rounded-lg py-1.5 px-3 data-[focus]:bg-white/10">
+                                    <Link to="/dashboard" reloadDocument className="group flex w-full items-center gap-2 rounded-lg py-1.5 px-3 data-[focus]:bg-white/10">
                                         <CommandLineIcon className="size-4" />
                                         Dashboard
                                     </Link>
