@@ -51,9 +51,7 @@ const App = () => {
                     :
                     <div></div>
             }
-            <div>
-                <Outlet context={{ user, width }} />
-            </div>
+            <Outlet context={{ user, width }} />
         </div>
     )
 }

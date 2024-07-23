@@ -55,7 +55,7 @@ const Home = () => {
             />
             {
                 user ?
-                    <div className='w-[80%] h-[80%]'>
+                    <div className='w-[80%] h-[80%] page-parent'>
                         <div>{user.username}'s account</div>
                         <div className='text-4xl mb-[50px]'>Account Home</div>
                         <div className='flex flex-row'>
@@ -110,7 +110,7 @@ const Home = () => {
                                             <div className='border-t-[3px] flex-grow border-dotted border-hr mx-[20px]'></div>
                                             <button
                                                 className='bg-warning h-[40px] rounded-md min-w-[50px] fc mr-[10px] px-[10px]'
-                                                onClick={(e) => logout()}
+                                                onClick={() => logout()}
                                             >
                                                 <div className='mr-[5px]'>
                                                     {loggingOut ? <LoadingWheel size={20} /> : <ArrowRightEndOnRectangleIcon className='size-7' />}
@@ -124,8 +124,30 @@ const Home = () => {
                         </div>
                     </div>
                     :
-                    <div>
-
+                    <div className='w-full fc flex-col'>
+                        <div className='gradienttext text-8xl'>
+                            Tracker
+                        </div>
+                        <div className='my-[20px] text-white/80'>
+                            Track weekly and monthly tasks easily with this free-to-use tool.
+                        </div>
+                        <div className='bg-hr h-[3px] w-[400px]'></div>
+                        <div className='text-white/80 flex flex-col items-center my-[20px]'>
+                            <Link reloadDocument to="/login">
+                                <button className='gradient rounded-full p-[10px] m-[5px] w-[235px] text-white'>
+                                    Login
+                                </button>
+                            </Link>
+                            <div>
+                                to an existing account or
+                            </div>
+                            <Link reloadDocument to="/register">
+                                <button className='gradient rounded-full p-[10px] m-[5px] w-[235px] text-white'>
+                                    Sign Up
+                                </button>
+                            </Link>
+                            <div>for a free account.</div>
+                        </div>
                     </div>
             }
 

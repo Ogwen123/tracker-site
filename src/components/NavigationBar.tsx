@@ -41,7 +41,7 @@ const NavigationBar = ({ context }: NavigationBarProps) => {
     return (
         <div className='flex px-[20px] items-center h-[90px] bg-bgdark'>
             <a href="/" className="h-full">
-                <div className='bg-[#D8B5FF] bg-gradient-to-br from-[#D8B5FF] to-[#1EAE98] text-transparent bg-clip-text text-5xl h-full flex items-center'>
+                <div className='gradienttext text-5xl h-full flex items-center'>
                     Tracker
                 </div>
             </a>
@@ -63,15 +63,14 @@ const NavigationBar = ({ context }: NavigationBarProps) => {
                 <MenuItems
                     transition
                     anchor="bottom end"
-                    className="w-[300px] mt-[30px] rounded-md border border-white/5 bg-white/5 transition duration-100 ease-out [--anchor-gap:var(--spacing-1)] focus:outline-none data-[closed]:scale-95 data-[closed]:opacity-0"
+                    className="w-[300px] mt-[30px] rounded-md border border-white/5 bg-bg/50 transition duration-100 ease-out [--anchor-gap:var(--spacing-1)] focus:outline-none data-[closed]:scale-95 data-[closed]:opacity-0"
                 >
                     {
                         context.user === undefined ?
                             <div>
                                 <MenuItem as="div">
                                     <div className="fc m-[10px]">
-                                        Logged in as
-                                        <div className="font-bold ml-[5px]">Guest</div>
+                                        Not logged in
                                     </div>
                                 </MenuItem>
                                 <div className="m-[5px] h-px bg-hr" />

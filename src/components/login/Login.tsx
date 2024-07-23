@@ -43,7 +43,7 @@ const Login = () => {
                     localStorage.setItem("userData", JSON.stringify({ username: data.data.username, name: data.data.name }))
                     setTimeout(() => {
                         location.href = "/"
-                    }, 500)
+                    }, 250)
                 })
             }
         }).catch(() => {
