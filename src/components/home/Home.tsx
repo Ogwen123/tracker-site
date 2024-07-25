@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom'
 import { url } from '../../utils/url'
 import LoadingWheel from '../LoadingWheel'
 import Alert, { alertReset } from '../Alert'
+import NewDialog from '../tasks/NewDialog'
 
 const Home = () => {
 
@@ -16,6 +17,7 @@ const Home = () => {
 
     const [loggingOut, setLoggingOut] = React.useState<boolean>(false)
     const [alert, setAlert] = React.useState<_Alert>(["Alert", "ERROR", false])
+    const [newDialog, setNewDialog] = React.useState<boolean>(true)
 
     const logout = () => {
         if (user === undefined) return
@@ -99,7 +101,7 @@ const Home = () => {
                                             <button
                                                 className='bg-main h-[40px] rounded-md min-w-[50px] fc mr-[10px] px-[10px]'
                                                 onClick={() => {
-                                                    location.href = "/task/new"
+                                                    setNewDialog(true)
                                                 }}
                                             >
                                                 <PlusIcon className='size-7' /> {width > 800 && "Add task"}
@@ -122,6 +124,8 @@ const Home = () => {
                                 </div>
                             </div>
                         </div>
+                        <NewDialog open={newDialog} setOpen={setNewDialog} />
+
                     </div>
                     :
                     <div className='w-full fc flex-col'>

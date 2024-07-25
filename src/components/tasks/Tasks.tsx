@@ -4,12 +4,14 @@ import { MagnifyingGlassIcon, PlusIcon } from '@heroicons/react/20/solid'
 import { useData } from '../../App'
 import LoadingWheel from '../LoadingWheel'
 import { Link } from 'react-router-dom'
+import NewDialog from './NewDialog'
 
 const Tasks = () => {
 
     const { user, width } = useData()
 
     const [query, setQuery] = React.useState<string>("")
+    const [newDialog, setNewDialog] = React.useState<boolean>(false)
 
     const search = () => {
 
@@ -21,12 +23,14 @@ const Tasks = () => {
                 user ?
                     <div>
                         <div className='flex flex-row'>
-                            <Link
-                                to="/tasks/new"
+                            <button
                                 className='bg-main h-[50px] rounded-md w-[10%] min-w-[50px] fc mr-[10px]'
+                                onClick={() => {
+                                    setNewDialog(true)
+                                }}
                             >
                                 <PlusIcon className='size-7' /> {width > 1400 && "Add task"}
-                            </Link>
+                            </button>
                             <input
                                 className='form-input flex-grow min-w-[300px] h-[50px] my-0 mr-[10px]'
                                 placeholder='Search tasks'
@@ -45,6 +49,7 @@ const Tasks = () => {
                                 Clear
                             </button>
                         </div>
+                        <NewDialog open={newDialog} setOpen={setNewDialog} />
                         <LoadingCard />
                     </div>
                     :

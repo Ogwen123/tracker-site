@@ -16,6 +16,10 @@ export type NavigationBarContext = {
 
 export type _Alert = [string | [string, string], "SUCCESS" | "ERROR", boolean]
 
+export type RepeatOptions = "WEEK" | "FORTNIGHT" | "MONTH"
+export type Day = "MONDAY" | "TUESDAY" | "WEDNESDAY" | "THURSDAY" | "FRIDAY" | "SATURDAY" | "SUNDAY"
+export type Week = "FIRST" | "SECOND" | "THIRD" | "FOURTH"
+
 export type Task = {
 
 }
@@ -26,4 +30,11 @@ export type Details = {
     username: string,
     email: string,
     password: string
+}
+
+export type TimeDetails = {
+    day: Day,
+    hour: number,
+    minute: number,
+    week: Week
 }

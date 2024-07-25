@@ -7,7 +7,7 @@ interface LoadingCardProps {
 const LoadingCard = ({ width = "300px", height = "300px" }: LoadingCardProps) => {
     return (
         <div
-            className='bg-bgdark rounded-md p-[10px] flex flex-col'
+            className='bg-bgdark rounded-md p-[10px] flex flex-col border-w'
             style={{
                 width: width,
                 height: height
