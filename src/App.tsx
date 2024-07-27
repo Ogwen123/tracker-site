@@ -18,15 +18,11 @@ const App = () => {
             let token = localStorage.getItem("token")
             let userData
             const userDataRaw = localStorage.getItem("userData")
-            console.log(userDataRaw)
             if (userDataRaw === null) token = null
             else userData = JSON.parse(userDataRaw)
 
-            console.log(token)
 
             if (token === null) {
-                console.log(location.pathname)
-                console.log(publicPaths.includes(location.pathname))
                 if (!publicPaths.includes(location.pathname)) {
                     location.href = "/login"
                 }

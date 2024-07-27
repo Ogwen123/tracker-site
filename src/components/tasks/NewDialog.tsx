@@ -4,6 +4,8 @@ import Alert from '../Alert'
 import { _Alert, Day, RepeatOptions, TimeDetails, Week } from '../../global/types'
 import LoadingWheel from '../LoadingWheel'
 import { ChevronDownIcon, XMarkIcon } from '@heroicons/react/20/solid'
+import { url } from '../../utils/url'
+import { useData } from '../../App'
 
 interface NewDialogProps {
     open: boolean,
@@ -11,6 +13,8 @@ interface NewDialogProps {
 }
 
 const NewDialog = ({ open, setOpen }: NewDialogProps) => {
+
+    const { user } = useData()
 
     const [alert, setAlert] = React.useState<_Alert>(["Alert", "ERROR", false])
     const [submitting, setSubmitting] = React.useState<boolean>(false)
@@ -20,7 +24,41 @@ const NewDialog = ({ open, setOpen }: NewDialogProps) => {
     const [timeDetails, setTimeDetails] = React.useState<TimeDetails>({ day: "MONDAY", hour: 12, minute: 0, week: "FIRST" })
 
     const create = () => {
+        setSubmitting(true)
+        const dtData = (dt === true ? timeDetails : {})
 
+        fetch(url("tracker") + "task/new", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "authorization": "Bearer " + user.token
+            },
+            body: JSON.stringify({
+                name,
+                repeatPeriod: repeat,
+                dt,
+                ...dtData
+            })
+        }).then((res) => {
+            if (!res.ok) {
+                res.json().then((data) => {
+                    setAlert([data.error instanceof Array ? data.error[0] : data.error, "ERROR", true])
+                    setSubmitting(false)
+                })
+            } else {
+                res.json().then(() => {
+                    setAlert(["Successfully created task.", "SUCCESS", true])
+                    setSubmitting(false)
+                    setTimeout(() => {
+                        setOpen(false)
+                    }, 250)
+                })
+            }
+        }).catch((e) => {
+            console.log(e)
+            setAlert(["An unknown error occured whilst creating the task.", "ERROR", true])
+            setSubmitting(false)
+        })
     }
 
     const cancel = () => {
@@ -43,7 +81,6 @@ const NewDialog = ({ open, setOpen }: NewDialogProps) => {
                             severity={alert[1]}
                             show={alert[2]}
                             title={alert[0] instanceof Array ? alert[0][0] : undefined}
-                            width="80%"
                         />
                         <DialogTitle as="h3" className="flex items-center">
                             <div className='font-bold text-white text-2xl'>New Task</div>

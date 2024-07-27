@@ -17,7 +17,7 @@ export const url = (type: "auth" | "tracker") => {
         if (env === "prod") {
             return "https://tracker-api.owen-services.eu.org/api/"
         } else {
-            return "http://localhost:3003/api/"
+            return "http://localhost:3004/api/"
         }
     }
 }
