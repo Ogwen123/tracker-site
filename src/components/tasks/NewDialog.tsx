@@ -1,6 +1,6 @@
 import { Dialog, DialogBackdrop, DialogPanel, DialogTitle, Select } from '@headlessui/react'
 import React from 'react'
-import Alert from '../Alert'
+import Alert, { alertReset } from '../Alert'
 import { _Alert, Day, RepeatOptions, TimeDetails, Week } from '../../global/types'
 import LoadingWheel from '../LoadingWheel'
 import { XMarkIcon } from '@heroicons/react/20/solid'
@@ -12,6 +12,8 @@ interface NewDialogProps {
     setOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
+const TIME_DETAILS_DEFAULT: TimeDetails = { day: "MONDAY", hour: 12, minute: 0, week: "FIRST" }
+
 const NewDialog = ({ open, setOpen }: NewDialogProps) => {
 
     const { user } = useData()
@@ -21,7 +23,7 @@ const NewDialog = ({ open, setOpen }: NewDialogProps) => {
     const [name, setName] = React.useState<string>("")
     const [repeat, setRepeat] = React.useState<RepeatOptions>("WEEK")
     const [dt, setDt] = React.useState<boolean>(false)
-    const [timeDetails, setTimeDetails] = React.useState<TimeDetails>({ day: "MONDAY", hour: 12, minute: 0, week: "FIRST" })
+    const [timeDetails, setTimeDetails] = React.useState<TimeDetails>(TIME_DETAILS_DEFAULT)
 
     const create = () => {
         setSubmitting(true)
@@ -50,7 +52,7 @@ const NewDialog = ({ open, setOpen }: NewDialogProps) => {
                     setAlert(["Successfully created task.", "SUCCESS", true])
                     setSubmitting(false)
                     setTimeout(() => {
-                        setOpen(false)
+                        close()
                     }, 250)
                 })
             }
@@ -61,9 +63,12 @@ const NewDialog = ({ open, setOpen }: NewDialogProps) => {
         })
     }
 
-    const cancel = () => {
-        // clear data from states
-        // close window
+    const close = () => {
+        setName("")
+        setRepeat("WEEK")
+        setDt(false)
+        setTimeDetails(TIME_DETAILS_DEFAULT)
+        setAlert(alertReset)
         setOpen(false)
     }
 
@@ -84,7 +89,7 @@ const NewDialog = ({ open, setOpen }: NewDialogProps) => {
                         />
                         <DialogTitle as="h3" className="flex items-center">
                             <div className='font-bold text-white text-2xl'>New Task</div>
-                            <XMarkIcon className='ml-auto size-9 fill-white hover:fill-white/75 hover:cursor-pointer' onClick={() => cancel()} />
+                            <XMarkIcon className='ml-auto size-9 fill-white hover:fill-white/75 hover:cursor-pointer' onClick={() => close()} />
                         </DialogTitle>
                         <div className='my-[40px]'>
                             <input
