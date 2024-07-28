@@ -13,3 +13,7 @@
     - [ ] calendar view (dashboard)
     - [ ] view overall completion data (dashboard)
 
+## things to fix
+ - [ ] home page spacing
+ - [ ] remove loading cards once tasks are fetched even if there are no tasks
+

@@ -12,7 +12,7 @@ const TaskCard = ({ task }: TaskCardProp) => {
             <div className='flex flex-wrap'>
                 <RepeatPeriodBadge type={task.repeat_period} />
                 {
-                    !task.date_time &&
+                    task.date_time &&
                     <CompletionDateBadge />
                 }
             </div>
