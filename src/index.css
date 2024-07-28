@@ -18,6 +18,20 @@ body {
         box-shadow: 0 0 10px 10px rgb(0 0 0 / 0.15);
     }
 
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button,
+input[type='number'] {
+    -webkit-appearance: none;
+    margin: 0;
+    -moz-appearance: textfield !important;
+}
+
+.task-grid {
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns: repeat(auto-fill, 300px);
+}
+
 @layer components {
     .fc {
         @apply flex items-center justify-center
@@ -57,11 +71,4 @@ body {
         @apply border border-solid border-white/5
     }
 
-    input[type='number']::-webkit-outer-spin-button,
-        input[type='number']::-webkit-inner-spin-button,
-        input[type='number'] {
-            -webkit-appearance: none;
-            margin: 0;
-            -moz-appearance: textfield !important;
-        }
 }

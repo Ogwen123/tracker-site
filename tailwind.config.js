@@ -22,7 +22,10 @@ export default {
         "hrdark": "#292e36",
         "subtext": "#bebebe",
         "admin": "#2563eb",
-        "hyperlink": "#57aeff"
+        "hyperlink": "#57aeff",
+        "weekly": "#b1f700",
+        "fortnightly": "#f85a01",
+        "monthly": "#f60195"
       },
     },
   },

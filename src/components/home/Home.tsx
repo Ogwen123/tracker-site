@@ -20,6 +20,7 @@ const Home = () => {
     const [newDialog, setNewDialog] = React.useState<boolean>(true)
 
     const logout = () => {
+        setPinnedTasks(pinnedTasks) // ! remove once actually using pinned tasks
         if (user === undefined) return
         setLoggingOut(true)
         fetch(url("auth") + "logout", {

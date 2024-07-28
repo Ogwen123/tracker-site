@@ -1,9 +1,9 @@
-import { Button, Dialog, DialogBackdrop, DialogPanel, DialogTitle, Select } from '@headlessui/react'
+import { Dialog, DialogBackdrop, DialogPanel, DialogTitle, Select } from '@headlessui/react'
 import React from 'react'
 import Alert from '../Alert'
 import { _Alert, Day, RepeatOptions, TimeDetails, Week } from '../../global/types'
 import LoadingWheel from '../LoadingWheel'
-import { ChevronDownIcon, XMarkIcon } from '@heroicons/react/20/solid'
+import { XMarkIcon } from '@heroicons/react/20/solid'
 import { url } from '../../utils/url'
 import { useData } from '../../App'
 
