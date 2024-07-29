@@ -14,7 +14,7 @@ const Tasks = () => {
 
     const { user, width } = useData()
 
-    const [tasks, setTasks] = React.useState<Task[]>([])
+    const [tasks, setTasks] = React.useState<Task[]>()
 
     const [query, setQuery] = React.useState<string>("")
     const [repeatPeriodFilter, setRepeatPeriodFilter] = React.useState<RepeatOptions | "ALL">("ALL")
@@ -68,29 +68,29 @@ const Tasks = () => {
             {
                 user ?
                     <div>
-                        <div className='flex flex-row'>
+                        <div className='flex flex-row flex-wrap'>
                             <button
-                                className='bg-main h-[50px] rounded-md w-[10%] min-w-[50px] fc mr-[10px] hover:gradient'
+                                className='bg-main h-[50px] rounded-md flex-grow min-w-[150px] fc mr-[10px] hover:gradient'
                                 onClick={() => {
                                     setNewDialog(true)
                                 }}
                             >
-                                <PlusIcon className='size-7' /> {width > 1400 && "Add task"}
+                                <PlusIcon className='size-7' /> Add task
                             </button>
                             <input
-                                className='form-input flex-grow min-w-[300px] h-[50px] my-0 mr-[10px]'
+                                className={'form-input min-w-[350px] h-[50px] my-0 mr-[10px] ' + (width < 800 ? "flex-grow" : "w-[70%]")}
                                 placeholder='Search tasks'
                                 value={query}
                                 onChange={(e) => setQuery(e.target.value)}
                             />
                             <button
-                                className='bg-main h-[50px] rounded-md w-[10%] min-w-[50px] fc mr-[10px]'
+                                className='bg-main h-[50px] rounded-md flex-grow min-w-[150px] fc mr-[10px]'
                                 onClick={search}
                             >
                                 <MagnifyingGlassIcon className='size-7' />
                             </button>
                             <button
-                                className='bg-warning h-[50px] rounded-md w-[10%] min-w-[50px] fc'
+                                className='bg-warning h-[50px] rounded-md flex-grow min-w-[150px] fc'
                             >
                                 Reset all filters
                             </button>
@@ -119,15 +119,15 @@ const Tasks = () => {
                                     }
                                 }}>
                                 <TabList className="flex w-full justify-between flex-wrap">
-                                    <Tab className="rounded-md py-1 px-3 text-white focus:outline-none data-[selected]:gradient data-[hover]:bg-main/50 data-[selected]:border-w hover:border-w w-[10%] min-w-[120px] h-[50px]">All</Tab>
-                                    <Tab className="rounded-md py-1 px-3 text-white focus:outline-none data-[selected]:gradient data-[hover]:bg-main/50 data-[selected]:border-w hover:border-w w-[10%] min-w-[120px] h-[50px]">Weekly</Tab>
-                                    <Tab className="rounded-md py-1 px-3 text-white focus:outline-none data-[selected]:gradient data-[hover]:bg-main/50 data-[selected]:border-w hover:border-w w-[10%] min-w-[120px] h-[50px]">Fortnightly</Tab>
-                                    <Tab className="rounded-md py-1 px-3 text-white focus:outline-none data-[selected]:gradient data-[hover]:bg-main/50 data-[selected]:border-w hover:border-w w-[10%] min-w-[120px] h-[50px]">Monthly</Tab>
+                                    <Tab className="rounded-md py-1 px-3 text-white focus:outline-none data-[selected]:gradient data-[hover]:bg-main/50 data-[selected]:border-w hover:border-w flex-grow min-w-[120px] h-[50px]">All</Tab>
+                                    <Tab className="rounded-md py-1 px-3 text-white focus:outline-none data-[selected]:gradient data-[hover]:bg-main/50 data-[selected]:border-w hover:border-w flex-grow min-w-[120px] h-[50px]">Weekly</Tab>
+                                    <Tab className="rounded-md py-1 px-3 text-white focus:outline-none data-[selected]:gradient data-[hover]:bg-main/50 data-[selected]:border-w hover:border-w flex-grow min-w-[120px] h-[50px]">Fortnightly</Tab>
+                                    <Tab className="rounded-md py-1 px-3 text-white focus:outline-none data-[selected]:gradient data-[hover]:bg-main/50 data-[selected]:border-w hover:border-w flex-grow min-w-[120px] h-[50px]">Monthly</Tab>
                                 </TabList>
                             </TabGroup>
                         </div>
                         {
-                            tasks.length === 0 ?
+                            tasks === undefined ?
                                 <div className='task-grid'>
                                     <LoadingCard />
                                     <LoadingCard />
@@ -137,23 +137,28 @@ const Tasks = () => {
                                     <LoadingCard />
                                 </div>
                                 :
-                                <div className='task-grid'>
-                                    {
-                                        tasks.map((task, index) => {
-                                            if (repeatPeriodFilter !== "ALL") {
-                                                if (task.repeat_period === repeatPeriodFilter) {
+                                tasks.length === 0 ?
+                                    <div className='task-grid'>
+                                        You do not have any tasks. You can use the button in the top left to create new tasks.
+                                    </div>
+                                    :
+                                    <div className='task-grid'>
+                                        {
+                                            tasks.map((task, index) => {
+                                                if (repeatPeriodFilter !== "ALL") {
+                                                    if (task.repeat_period === repeatPeriodFilter) {
+                                                        return (
+                                                            <TaskCard key={index} task={task} />
+                                                        )
+                                                    }
+                                                } else {
                                                     return (
                                                         <TaskCard key={index} task={task} />
                                                     )
                                                 }
-                                            } else {
-                                                return (
-                                                    <TaskCard key={index} task={task} />
-                                                )
-                                            }
-                                        })
-                                    }
-                                </div>
+                                            })
+                                        }
+                                    </div>
                         }
                     </div>
                     :

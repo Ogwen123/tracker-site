@@ -17,7 +17,7 @@ const Home = () => {
 
     const [loggingOut, setLoggingOut] = React.useState<boolean>(false)
     const [alert, setAlert] = React.useState<_Alert>(["Alert", "ERROR", false])
-    const [newDialog, setNewDialog] = React.useState<boolean>(true)
+    const [newDialog, setNewDialog] = React.useState<boolean>(false)
 
     const logout = () => {
         setPinnedTasks(pinnedTasks) // ! remove once actually using pinned tasks
@@ -58,11 +58,13 @@ const Home = () => {
             />
             {
                 user ?
-                    <div className='w-[80%] h-[80%] page-parent'>
+                    <div className='size-[80%] page-parent'>
                         <div>{user.username}'s account</div>
                         <div className='text-4xl mb-[50px]'>Account Home</div>
-                        <div className='flex flex-row'>
-                            <div className='w-[50%] pr-[10px]'> {/*left column*/}
+                        <div className={'flex ' + (width < 950 ? "flex-col" : "flex-row")}>
+
+                            <div className={(width < 950 ? "pb-[10px] width-full" : "pr-[10px] w-[50%]")}> {/*left column*/}
+
                                 <div className='border-[2px] border-hr rounded-md w-full p-[20px] h-[500px] flex flex-col'>
                                     <div className='text-2xl mb-[20px] flex items-center'>
                                         <BookmarkIcon className='size-7 fill-yellow-300' />
@@ -89,7 +91,9 @@ const Home = () => {
                                     }
                                 </div>
                             </div>
-                            <div className='w-[50%] pl-[10px]'>{/*right column*/}
+
+                            <div className={(width < 950 ? "pt-[10px] width-full" : "pl-[10px] w-[50%]")}>{/*right column*/}
+
                                 <div className='border-[2px] border-hr rounded-md w-full p-[20px] h-[350px] flex flex-col'>
                                     <div className='text-2xl mb-[20px] flex items-center'>
                                         <BoltIcon className='size-7 fill-main' />
@@ -129,7 +133,7 @@ const Home = () => {
 
                     </div>
                     :
-                    <div className='w-full fc flex-col'>
+                    <div className='w-full fc flex-col mt-[20vh]'>
                         <div className='gradienttext text-8xl'>
                             Tracker
                         </div>
