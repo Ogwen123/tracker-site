@@ -119,7 +119,7 @@ const Tasks = () => {
                                 Reset all filters
                             </button>
                         </div>
-                        <NewDialog open={newDialog} setOpen={setNewDialog} setTasks={setTasks} />
+                        <NewDialog open={newDialog} setOpen={setNewDialog} setTasks={setTasks} page={page} />
                         <div className='w-full mb-[20px] mt-[10px] flex'>
                             <TabGroup
                                 className="w-[calc(40%-14px)] bg-bgdark rounded-md p-[5px] mr-[20px]"
@@ -225,7 +225,13 @@ const Tasks = () => {
                                             tasks.map((task, index) => {
                                                 if (checkFilter(task) === true) {
                                                     return (
-                                                        <TaskCard key={index} task={task} setTasks={setTasks} />
+                                                        <TaskCard
+                                                            key={index}
+                                                            task={task}
+                                                            setTasks={setTasks}
+                                                            page={page}
+                                                            setAlert={setAlert}
+                                                        />
                                                     )
                                                 }
 

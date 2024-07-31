@@ -1,17 +1,23 @@
 import React from 'react'
-import { Task } from '../../global/types'
+import { _Alert, Task } from '../../global/types'
 import RepeatPeriodBadge from './RepeatPeriodBadge'
 import CompletionDateBadge from './CompletionDateBadge'
 import { Link } from 'react-router-dom'
 import { BookmarkIcon, TrashIcon } from '@heroicons/react/20/solid'
 import DeleteDialog from './DeleteDialog'
+import { useData } from '../../App'
+import { url } from '../../utils/url'
 
 interface TaskCardProp {
     task: Task,
-    setTasks: React.Dispatch<React.SetStateAction<Task[] | undefined>>
+    setTasks: React.Dispatch<React.SetStateAction<Task[] | undefined>>,
+    page: number,
+    setAlert: React.Dispatch<React.SetStateAction<_Alert>>
 }
 
-const TaskCard = ({ task, setTasks }: TaskCardProp) => {
+const TaskCard = ({ task, setTasks, page, setAlert }: TaskCardProp) => {
+
+    const { user } = useData()
 
     const [deleteDialog, setDeleteDialog] = React.useState<boolean>(false)
 
@@ -20,12 +26,34 @@ const TaskCard = ({ task, setTasks }: TaskCardProp) => {
     }
 
     const pinTask = () => {
-
+        if (!user) return
+        console.log("here")
+        fetch(url("tracker") + "task/pin", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + user.token
+            },
+            body: JSON.stringify({
+                id: task.id,
+                page
+            })
+        }).then((res) => {
+            if (!res.ok) {
+                res.json().then((data) => {
+                    setAlert([data.error, "ERROR", true])
+                })
+            } else {
+                res.json().then((data) => {
+                    setTasks(data.data)
+                })
+            }
+        })
     }
 
     return (
-        <div className='size-[300px] bg-bgdark rounded-md border-w p-[10px] flex flex-col'>
-            <DeleteDialog open={deleteDialog} setOpen={setDeleteDialog} id={task.id} setTasks={setTasks} />
+        <div className={'size-[300px] rounded-md  p-[10px] flex flex-col ' + (task.completed ? "gradient" : "bg-bgdark border-w")}>
+            <DeleteDialog open={deleteDialog} setOpen={setDeleteDialog} id={task.id} setTasks={setTasks} page={page} />
             <div className='flex-grow'>
                 <div className='flex flex-wrap'>
                     <RepeatPeriodBadge type={task.repeat_period} />
@@ -39,7 +67,7 @@ const TaskCard = ({ task, setTasks }: TaskCardProp) => {
                         {task.name}
                     </div>
                     <div className='flex flex-row items-center'>
-                        <BookmarkIcon className={'size-4 hover:fill-yellow-300/50 ' + (task.is_pinned && "fill-yellow-300")} onClick={pinTask} />
+                        <BookmarkIcon className={'size-4 hover:fill-yellow-300/50 ' + (task.pinned && "fill-yellow-300 hover:fill-yellow-300")} onClick={pinTask} />
                         <TrashIcon className={'size-4 hover:fill-error/50'} onClick={() => setDeleteDialog(true)} />
                     </div>
                 </div>
@@ -58,7 +86,16 @@ const TaskCard = ({ task, setTasks }: TaskCardProp) => {
                     onClick={() => markComplete()}
                     className='bg-main rounded-md p-[5px] ml-[10px] w-[calc(50%-10px)] min-w-[100px] fc'
                 >
-                    Complete
+                    {
+                        task.completed ?
+                            <div className='text-sm'>
+                                Undo Completion
+                            </div>
+                            :
+                            <div>
+                                Complete
+                            </div>
+                    }
                 </button>
             </div>
         </div>

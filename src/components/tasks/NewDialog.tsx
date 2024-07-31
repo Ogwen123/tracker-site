@@ -10,12 +10,13 @@ import { useData } from '../../App'
 interface NewDialogProps {
     open: boolean,
     setOpen: React.Dispatch<React.SetStateAction<boolean>>,
-    setTasks?: React.Dispatch<React.SetStateAction<Task[] | undefined>>
+    setTasks?: React.Dispatch<React.SetStateAction<Task[] | undefined>>,
+    page: number
 }
 
 const TIME_DETAILS_DEFAULT: TimeDetails = { day: "MONDAY", hour: 12, minute: 0, week: "FIRST" }
 
-const NewDialog = ({ open, setOpen, setTasks }: NewDialogProps) => {
+const NewDialog = ({ open, setOpen, setTasks, page }: NewDialogProps) => {
 
     const { user } = useData()
 
@@ -40,7 +41,8 @@ const NewDialog = ({ open, setOpen, setTasks }: NewDialogProps) => {
                 name,
                 repeatPeriod: repeat,
                 dt,
-                ...dtData
+                ...dtData,
+                page
             })
         }).then((res) => {
             if (!res.ok) {

@@ -10,10 +10,11 @@ interface DeleteDialogProps {
     open: boolean,
     setOpen: React.Dispatch<React.SetStateAction<boolean>>,
     id: string,
-    setTasks: React.Dispatch<React.SetStateAction<Task[] | undefined>>
+    setTasks: React.Dispatch<React.SetStateAction<Task[] | undefined>>,
+    page: number
 }
 
-const DeleteDialog = ({ open, setOpen, id, setTasks }: DeleteDialogProps) => {
+const DeleteDialog = ({ open, setOpen, id, setTasks, page }: DeleteDialogProps) => {
 
     const { user } = useData()
 
@@ -32,7 +33,8 @@ const DeleteDialog = ({ open, setOpen, id, setTasks }: DeleteDialogProps) => {
                 "Authorization": "Bearer " + user.token
             },
             body: JSON.stringify({
-                id
+                id,
+                page
             })
         }).then((res) => {
             if (!res.ok) {
@@ -68,7 +70,7 @@ const DeleteDialog = ({ open, setOpen, id, setTasks }: DeleteDialogProps) => {
                             <XMarkIcon className='ml-auto size-9 fill-white hover:fill-white/75 hover:cursor-pointer' onClick={() => close()} />
                         </DialogTitle>
                         <div className='my-[40px]'>
-                            Are you sure you want to delete this task?
+                            Are you sure you want to delete this task? You will be deleting the task as well as all of its associated completion data.
                         </div>
                         <div className='flex flex-row'>
                             <button

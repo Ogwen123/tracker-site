@@ -17,7 +17,7 @@ const Alert = ({ content, severity, show, title, width = "100%" }: AlertProps) =
         show ?
 
             <div
-                className="flex items-center bg-bgdark rounded-md h-[87px]"
+                className="flex items-center bg-bgdark rounded-md h-[87px] mb-[5px]"
                 style={{
                     width: width
                 }}

@@ -30,7 +30,7 @@ export type Task = {
     minute: number | null,
     week_of_repeat_period: Week | null,
     user_id: string,
-    is_pinned: boolean,
+    pinned: boolean,
     completed: boolean,
     completions: number,
     created_at: string
