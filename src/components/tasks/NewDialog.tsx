@@ -1,7 +1,7 @@
 import { Dialog, DialogBackdrop, DialogPanel, DialogTitle, Select } from '@headlessui/react'
 import React from 'react'
 import Alert, { alertReset } from '../Alert'
-import { _Alert, Day, RepeatOptions, TimeDetails, Week } from '../../global/types'
+import { _Alert, Day, RepeatOptions, Task, TimeDetails, Week } from '../../global/types'
 import LoadingWheel from '../LoadingWheel'
 import { XMarkIcon } from '@heroicons/react/20/solid'
 import { url } from '../../utils/url'
@@ -9,12 +9,13 @@ import { useData } from '../../App'
 
 interface NewDialogProps {
     open: boolean,
-    setOpen: React.Dispatch<React.SetStateAction<boolean>>
+    setOpen: React.Dispatch<React.SetStateAction<boolean>>,
+    setTasks?: React.Dispatch<React.SetStateAction<Task[] | undefined>>
 }
 
 const TIME_DETAILS_DEFAULT: TimeDetails = { day: "MONDAY", hour: 12, minute: 0, week: "FIRST" }
 
-const NewDialog = ({ open, setOpen }: NewDialogProps) => {
+const NewDialog = ({ open, setOpen, setTasks }: NewDialogProps) => {
 
     const { user } = useData()
 
@@ -48,9 +49,14 @@ const NewDialog = ({ open, setOpen }: NewDialogProps) => {
                     setSubmitting(false)
                 })
             } else {
-                res.json().then(() => {
+                res.json().then((data) => {
                     setAlert(["Successfully created task.", "SUCCESS", true])
                     setSubmitting(false)
+
+                    if (setTasks !== undefined) {
+                        setTasks(data.data)
+                    }
+
                     setTimeout(() => {
                         close()
                     }, 250)

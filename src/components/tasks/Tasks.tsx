@@ -18,6 +18,9 @@ const Tasks = () => {
 
     const [query, setQuery] = React.useState<string>("")
     const [repeatPeriodFilter, setRepeatPeriodFilter] = React.useState<RepeatOptions | "ALL">("ALL")
+    const [completionFilter, setCompletionFilter] = React.useState<"ALL" | "YES" | "NO">("ALL")
+    const [dateFilter, setDateFilter] = React.useState<"ALL" | "DATE" | "NODATE">("ALL")
+
     const [newDialog, setNewDialog] = React.useState<boolean>(false)
     const [page, setPage] = React.useState<number>(0)
     const [alert, setAlert] = React.useState<_Alert>(["Alert", "ERROR", false])
@@ -49,6 +52,27 @@ const Tasks = () => {
         })
     }, [user])
 
+    const checkFilter = (task: Task) => {
+        if (repeatPeriodFilter === "ALL" && completionFilter === "ALL" && dateFilter === "ALL") {
+            return true
+        }
+
+
+        if (task.repeat_period !== repeatPeriodFilter && repeatPeriodFilter !== "ALL") {
+            return false
+        }
+
+        if ((task.completed === true && completionFilter === "NO") || (task.completed === false && completionFilter === "YES")) {
+            return false
+        }
+
+        if ((task.date_time === true && dateFilter === "NODATE") || (task.date_time === false && dateFilter === "DATE")) {
+            return false
+        }
+
+        return true
+    }
+
     const loadMore = () => {
         setPage(page)
     }
@@ -70,7 +94,7 @@ const Tasks = () => {
                     <div>
                         <div className='flex flex-row flex-wrap'>
                             <button
-                                className='bg-main h-[50px] rounded-md flex-grow min-w-[150px] fc mr-[10px] hover:gradient'
+                                className='bg-main h-[50px] rounded-md flex-grow min-w-[150px] fc mr-[10px] hover:gradient mb-[10px]'
                                 onClick={() => {
                                     setNewDialog(true)
                                 }}
@@ -78,27 +102,27 @@ const Tasks = () => {
                                 <PlusIcon className='size-7' /> Add task
                             </button>
                             <input
-                                className={'form-input min-w-[350px] h-[50px] my-0 mr-[10px] ' + (width < 800 ? "flex-grow" : "w-[70%]")}
+                                className={'form-input min-w-[350px] h-[50px] my-0 mr-[10px] mb-[10px] ' + (width < 800 ? "flex-grow" : "w-[70%]")}
                                 placeholder='Search tasks'
                                 value={query}
                                 onChange={(e) => setQuery(e.target.value)}
                             />
                             <button
-                                className='bg-main h-[50px] rounded-md flex-grow min-w-[150px] fc mr-[10px]'
+                                className='bg-main h-[50px] rounded-md flex-grow min-w-[150px] fc mr-[10px] mb-[10px]'
                                 onClick={search}
                             >
                                 <MagnifyingGlassIcon className='size-7' />
                             </button>
                             <button
-                                className='bg-warning h-[50px] rounded-md flex-grow min-w-[150px] fc'
+                                className='bg-warning h-[50px] rounded-md flex-grow min-w-[150px] fc mb-[10px]'
                             >
                                 Reset all filters
                             </button>
                         </div>
-                        <NewDialog open={newDialog} setOpen={setNewDialog} />
-                        <div className='w-[50%] my-[20px]'>
+                        <NewDialog open={newDialog} setOpen={setNewDialog} setTasks={setTasks} />
+                        <div className='w-full mb-[20px] mt-[10px] flex'>
                             <TabGroup
-                                className="w-full bg-bgdark rounded-md p-[5px]"
+                                className="w-[calc(40%-14px)] bg-bgdark rounded-md p-[5px] mr-[20px]"
                                 onChange={(index) => {
                                     switch (index) {
                                         case 0:
@@ -125,6 +149,60 @@ const Tasks = () => {
                                     <Tab className="rounded-md py-1 px-3 text-white focus:outline-none data-[selected]:gradient data-[hover]:bg-main/50 data-[selected]:border-w hover:border-w flex-grow min-w-[120px] h-[50px]">Monthly</Tab>
                                 </TabList>
                             </TabGroup>
+
+
+
+                            <TabGroup
+                                className="w-[calc(30%-12px)] bg-bgdark rounded-md p-[5px]"
+                                onChange={(index) => {
+                                    switch (index) {
+                                        case 0:
+                                            setCompletionFilter("ALL")
+                                            break;
+                                        case 1:
+                                            setCompletionFilter("YES")
+                                            break;
+                                        case 2:
+                                            setCompletionFilter("NO")
+                                            break;
+                                        default:
+                                            setCompletionFilter("ALL")
+                                            break;
+                                    }
+                                }}>
+                                <TabList className="flex w-full justify-between flex-wrap">
+                                    <Tab className="rounded-md py-1 px-3 text-white focus:outline-none data-[selected]:gradient data-[hover]:bg-main/50 data-[selected]:border-w hover:border-w flex-grow min-w-[120px] h-[50px]">All</Tab>
+                                    <Tab className="rounded-md py-1 px-3 text-white focus:outline-none data-[selected]:gradient data-[hover]:bg-main/50 data-[selected]:border-w hover:border-w flex-grow min-w-[120px] h-[50px]">Completed</Tab>
+                                    <Tab className="rounded-md py-1 px-3 text-white focus:outline-none data-[selected]:gradient data-[hover]:bg-main/50 data-[selected]:border-w hover:border-w flex-grow min-w-[120px] h-[50px]">Not Completed</Tab>
+                                </TabList>
+                            </TabGroup>
+
+
+
+                            <TabGroup
+                                className="w-[calc(30%-14px)] bg-bgdark rounded-md p-[5px] ml-[20px]"
+                                onChange={(index) => {
+                                    switch (index) {
+                                        case 0:
+                                            setDateFilter("ALL")
+                                            break;
+                                        case 1:
+                                            setDateFilter("DATE")
+                                            break;
+                                        case 2:
+                                            setDateFilter("NODATE")
+                                            break;
+                                        default:
+                                            setDateFilter("ALL")
+                                            break;
+                                    }
+                                }}>
+                                <TabList className="flex w-full justify-between flex-wrap">
+                                    <Tab className="rounded-md py-1 px-3 text-white focus:outline-none data-[selected]:gradient data-[hover]:bg-main/50 data-[selected]:border-w hover:border-w flex-grow min-w-[120px] h-[50px]">All</Tab>
+                                    <Tab className="rounded-md py-1 px-3 text-white text-sm focus:outline-none data-[selected]:gradient data-[hover]:bg-main/50 data-[selected]:border-w hover:border-w flex-grow min-w-[120px] h-[50px]">Has Completion Date</Tab>
+                                    <Tab className="rounded-md py-1 px-3 text-white text-sm focus:outline-none data-[selected]:gradient data-[hover]:bg-main/50 data-[selected]:border-w hover:border-w flex-grow min-w-[120px] h-[50px]">Doesn't Have Completion Date</Tab>
+                                </TabList>
+                            </TabGroup>
                         </div>
                         {
                             tasks === undefined ?
@@ -145,17 +223,12 @@ const Tasks = () => {
                                     <div className='task-grid'>
                                         {
                                             tasks.map((task, index) => {
-                                                if (repeatPeriodFilter !== "ALL") {
-                                                    if (task.repeat_period === repeatPeriodFilter) {
-                                                        return (
-                                                            <TaskCard key={index} task={task} />
-                                                        )
-                                                    }
-                                                } else {
+                                                if (checkFilter(task) === true) {
                                                     return (
-                                                        <TaskCard key={index} task={task} />
+                                                        <TaskCard key={index} task={task} setTasks={setTasks} />
                                                     )
                                                 }
+
                                             })
                                         }
                                     </div>
