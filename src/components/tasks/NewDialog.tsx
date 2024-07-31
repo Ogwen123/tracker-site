@@ -11,7 +11,7 @@ interface NewDialogProps {
     open: boolean,
     setOpen: React.Dispatch<React.SetStateAction<boolean>>,
     setTasks?: React.Dispatch<React.SetStateAction<Task[] | undefined>>,
-    page: number
+    page?: number
 }
 
 const TIME_DETAILS_DEFAULT: TimeDetails = { day: "MONDAY", hour: 12, minute: 0, week: "FIRST" }
@@ -42,7 +42,7 @@ const NewDialog = ({ open, setOpen, setTasks, page }: NewDialogProps) => {
                 repeatPeriod: repeat,
                 dt,
                 ...dtData,
-                page
+                page: (page === undefined ? 0 : page)
             })
         }).then((res) => {
             if (!res.ok) {
