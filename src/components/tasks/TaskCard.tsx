@@ -7,6 +7,7 @@ import { BookmarkIcon, TrashIcon } from '@heroicons/react/20/solid'
 import DeleteDialog from './DeleteDialog'
 import { useData } from '../../App'
 import { url } from '../../utils/url'
+import { title } from '../../utils/string'
 
 interface TaskCardProp {
     task: Task,
@@ -74,15 +75,34 @@ const TaskCard = ({ task, setTasks, page, setAlert }: TaskCardProp) => {
                 <div className='mb-[10px] text-xs text-hr my-[5px]'>
                     {task.id}
                 </div>
-                <div>
+                <div className='text-subtext'>
                     {
                         task.date_time === true ?
-                            <div>
-
+                            <div className='flex flex-col mt-[20px]'>
+                                <div className='text-lg text-white'>
+                                    Completion Date and Time:
+                                </div>
+                                <div className=''>
+                                    Completion Day: {task.day !== null ? title(task.day) : "ERROR"}
+                                </div>
+                                <div className=''>
+                                    Completion Time: {task.hour !== null && task.minute !== null ? task.hour + ":" + (task.minute < 10 ? "0" + task.minute : task.minute) : "ERROR"}
+                                </div>
+                                {
+                                    task.week_of_repeat_period !== null && task.week_of_repeat_period !== "FIRST" &&
+                                    <div className=''>
+                                        Completion Week: {title(task.week_of_repeat_period)}
+                                    </div>
+                                }
                             </div>
                             :
-                            <div>
-
+                            <div className='flex flex-col mt-[20px]'>
+                                <div className='text-lg text-white'>
+                                    Completion Date and Time:
+                                </div>
+                                <div className='fc text-xl mt-[20px]'>
+                                    N/A
+                                </div>
                             </div>
                     }
                 </div>

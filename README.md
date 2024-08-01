@@ -12,6 +12,7 @@
     - [ ] click on a task and see completion data
     - [ ] calendar view (dashboard)
     - [ ] view overall completion data (dashboard)
+ - [ ] allow tasks to be completed
 
 
 ## small TODOs
