@@ -26,7 +26,7 @@ const Tasks = () => {
     const [alert, setAlert] = React.useState<_Alert>(["Alert", "ERROR", false])
 
     React.useEffect(() => {
-        if (user === undefined) return
+        if (user === undefined || tasks !== undefined) return
         fetch(url("tracker") + "tasks", {
             method: "POST",
             headers: {

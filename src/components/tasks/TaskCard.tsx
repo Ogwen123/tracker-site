@@ -71,8 +71,20 @@ const TaskCard = ({ task, setTasks, page, setAlert }: TaskCardProp) => {
                         <TrashIcon className={'size-4 hover:fill-error/50'} onClick={() => setDeleteDialog(true)} />
                     </div>
                 </div>
-                <div className='mb-[10px] text-xs text-hr'>
+                <div className='mb-[10px] text-xs text-hr my-[5px]'>
                     {task.id}
+                </div>
+                <div>
+                    {
+                        task.date_time === true ?
+                            <div>
+
+                            </div>
+                            :
+                            <div>
+
+                            </div>
+                    }
                 </div>
             </div>
             <div className='flex flex-row h-[40px]'>

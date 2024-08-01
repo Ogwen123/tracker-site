@@ -8,6 +8,7 @@ import { url } from '../../utils/url'
 import LoadingWheel from '../LoadingWheel'
 import Alert, { alertReset } from '../Alert'
 import NewDialog from '../tasks/NewDialog'
+import PinnedCard from './PinnedCard'
 
 const Home = () => {
 
@@ -19,8 +20,30 @@ const Home = () => {
     const [alert, setAlert] = React.useState<_Alert>(["Alert", "ERROR", false])
     const [newDialog, setNewDialog] = React.useState<boolean>(false)
 
+    React.useEffect(() => {
+        if (user === undefined || pinnedTasks !== undefined) return
+        fetch(url("tracker") + "tasks/pinned", {
+            method: "GET",
+            headers: {
+                "Authorization": "Bearer " + user.token
+            }
+        }).then((res) => {
+            if (!res.ok) {
+                setAlert(["An error occured while fetching your pinned tasks. Please try reloading the page.", "ERROR", true])
+                setTimeout(() => {
+                    setAlert(alertReset)
+                }, 5000)
+            } else {
+                res.json().then((data) => {
+                    setPinnedTasks(data.data)
+                })
+            }
+        }).catch(() => {
+            setAlert(["An error occured while fetching your tasks. Please try reloading the page.", "ERROR", true])
+        })
+    }, [user])
+
     const logout = () => {
-        setPinnedTasks(pinnedTasks) // ! remove once actually using pinned tasks
         if (user === undefined) return
         setLoggingOut(true)
         fetch(url("auth") + "logout", {
@@ -49,16 +72,15 @@ const Home = () => {
 
     return (
         <div className='fc flex-col'>
-            <Alert
-                content={alert[0] instanceof Array ? alert[0][1] : alert[0]}
-                severity={alert[1]}
-                show={alert[2]}
-                title={alert[0] instanceof Array ? alert[0][0] : undefined}
-                width="80%"
-            />
             {
                 user ?
                     <div className='size-[80%] page-parent'>
+                        <Alert
+                            content={alert[0] instanceof Array ? alert[0][1] : alert[0]}
+                            severity={alert[1]}
+                            show={alert[2]}
+                            title={alert[0] instanceof Array ? alert[0][0] : undefined}
+                        />
                         <div>{user.username}'s account</div>
                         <div className='text-4xl mb-[50px]'>Account Home</div>
                         <div className={'flex ' + (width < 950 ? "flex-col" : "flex-row")}>
@@ -77,16 +99,26 @@ const Home = () => {
                                                 <LoadingPinnedCard />
                                                 <LoadingPinnedCard />
                                             </div>
+
                                             :
+
                                             pinnedTasks.length === 0 ?
                                                 <div className='border border-solid border-hr rounded-md fc flex-col text-lg flex-grow p-[10px]'>
                                                     <BookmarkIcon className='size-20 fill-yellow-300 mb-[20px]' />
                                                     <div className='w-[60%] text-center'>Pinned tasks will appear here. You can pin tasks from the tasks page.</div>
                                                     <Link to="/tasks" reloadDocument className="underline mt-[20px] text-hyperlink">Go to tasks</Link>
                                                 </div>
+
                                                 :
-                                                <div className='border border-solid border-hr rounded-md fc flex-col text-lg flex-grow p-[10px] overflow-y-auto'>
-                                                    display tasks
+
+                                                <div className='border border-hr rounded-md flex flex-col text-lg flex-grow p-[10px] overflow-y-auto'>
+                                                    {
+                                                        pinnedTasks.map((task, index) => {
+                                                            return (
+                                                                <PinnedCard key={index} task={task} />
+                                                            )
+                                                        })
+                                                    }
                                                 </div>
                                     }
                                 </div>
