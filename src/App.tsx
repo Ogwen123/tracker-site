@@ -40,7 +40,7 @@ const App = () => {
     }, [])
 
     return (
-        <div className='min-h-[100vh]'>
+        <div className='min-h-[100vh] overflow-y-hidden'>
             {
                 !navBarExempt.includes(location.pathname) ?
                     <NavigationBar context={{ user, width }} />

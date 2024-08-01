@@ -29,7 +29,7 @@ input[type='number'] {
 .task-grid {
     display: grid;
     grid-gap: 20px;
-    grid-template-columns: repeat(auto-fill, 300px);
+    grid-template-columns: repeat(auto-fill, 290px); /* 290 is the max width to allow 6 cards in a row on a 1920 screen with the scroll bar */
 }
 
 @layer components {

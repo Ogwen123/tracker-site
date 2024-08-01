@@ -13,9 +13,16 @@
     - [ ] calendar view (dashboard)
     - [ ] view overall completion data (dashboard)
  - [ ] allow tasks to be completed
+ - [ ] searching tasks
+ - [ ] dashboard
+ - [ ] pagination
 
 
 ## small TODOs
  - [ ] add unpin button to the pinned tasks on the home page
  - [ ] add delete button to the pinned tasks on the home page
 
+
+## other features i could add
+ - [ ] shopping list
+ - [ ] sharing tasks with other people

@@ -7,7 +7,7 @@ import { BookmarkIcon, TrashIcon } from '@heroicons/react/20/solid'
 import DeleteDialog from './DeleteDialog'
 import { useData } from '../../App'
 import { url } from '../../utils/url'
-import { title } from '../../utils/string'
+import { formatTaskName, title } from '../../utils/string'
 
 interface TaskCardProp {
     task: Task,
@@ -53,7 +53,7 @@ const TaskCard = ({ task, setTasks, page, setAlert }: TaskCardProp) => {
     }
 
     return (
-        <div className={'size-[300px] rounded-md  p-[10px] flex flex-col ' + (task.completed ? "gradient" : "bg-bgdark border-w")}>
+        <div className={'size-[294px] rounded-md  p-[10px] flex flex-col ' + (task.completed ? "gradient" : "bg-bgdark border-w")}>
             <DeleteDialog open={deleteDialog} setOpen={setDeleteDialog} id={task.id} setTasks={setTasks} page={page} />
             <div className='flex-grow'>
                 <div className='flex flex-wrap'>
@@ -65,7 +65,7 @@ const TaskCard = ({ task, setTasks, page, setAlert }: TaskCardProp) => {
                 </div>
                 <div className='mt-[10px] text-2xl h-[26px] flex flex-row'>
                     <div className='flex-grow'>
-                        {task.name}
+                        {formatTaskName(task.name)}
                     </div>
                     <div className='flex flex-row items-center'>
                         <BookmarkIcon className={'size-4 hover:fill-yellow-300/50 ' + (task.pinned && "fill-yellow-300 hover:fill-yellow-300")} onClick={pinTask} />

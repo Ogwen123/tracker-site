@@ -1,19 +1,71 @@
-//import React from 'react'
+import React from 'react'
 
 import { Link } from "react-router-dom"
-import { Task } from "../../global/types"
+import { _Alert, Task } from "../../global/types"
 import CompletionDateBadge from "../tasks/CompletionDateBadge"
 import RepeatPeriodBadge from "../tasks/RepeatPeriodBadge"
+import DeleteDialog from "../tasks/DeleteDialog"
+import { BookmarkIcon, TrashIcon } from '@heroicons/react/20/solid'
+import { useData } from '../../App'
+import { url } from '../../utils/url'
+import { alertReset } from '../Alert'
 
 interface PinnedCardProps {
-    task: Task
+    task: Task,
+    setPinnedTasks: React.Dispatch<React.SetStateAction<Task[] | undefined>>,
+    setAlert: React.Dispatch<React.SetStateAction<_Alert>>
 }
 
-const PinnedCard = ({ task }: PinnedCardProps) => {
+const PinnedCard = ({ task, setPinnedTasks, setAlert }: PinnedCardProps) => {
+
+    const { user } = useData()
+
+    const [deleteDialog, setDeleteDialog] = React.useState<boolean>(false)
+
+    const pinTask = () => {
+        if (!user) return
+        console.log("here")
+        fetch(url("tracker") + "task/pin", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + user.token
+            },
+            body: JSON.stringify({
+                id: task.id,
+                page: 0
+            })
+        }).then((res) => {
+            if (!res.ok) {
+                res.json().then((data) => {
+                    setAlert([data.error, "ERROR", true])
+                    setTimeout(() => {
+                        setAlert(alertReset)
+                    }, 5000)
+                })
+            } else {
+                setPinnedTasks((prev) => (prev?.filter((pinned, _) => {
+                    if (task.id === pinned.id) {
+                        return false
+                    } else {
+                        return true
+                    }
+                })))
+            }
+        })
+    }
+
     return (
         <div
-            className='bg-bgdark rounded-md p-[10px] flex flex-row w-full border-w flex-grow max-h-[123px] min-h-[95px]'
+            className='bg-bgdark rounded-md p-[10px] flex flex-row w-full border-w flex-grow max-h-[123px] min-h-[123px] mb-[4px]'
         >
+            <DeleteDialog
+                open={deleteDialog}
+                setOpen={setDeleteDialog}
+                id={task.id}
+                setTasks={setPinnedTasks}
+                setFromRes={false}
+            />
             <div className="w-[80%]">
                 <div className='flex flex-wrap'>
                     <RepeatPeriodBadge type={task.repeat_period} />
@@ -22,8 +74,12 @@ const PinnedCard = ({ task }: PinnedCardProps) => {
                         <CompletionDateBadge />
                     }
                 </div>
-                <div>
+                <div className='text-xl'>
                     {task.name}
+                </div>
+                <div className='flex flex-row items-center'>
+                    <BookmarkIcon className={'size-4 hover:fill-yellow-300/50 ' + (task.pinned && "fill-yellow-300 hover:fill-yellow-300")} onClick={pinTask} />
+                    <TrashIcon className={'size-4 hover:fill-error/50'} onClick={() => setDeleteDialog(true)} />
                 </div>
             </div>
             <div className='flex flex-col w-[20%]'>

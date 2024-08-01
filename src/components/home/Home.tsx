@@ -115,7 +115,12 @@ const Home = () => {
                                                     {
                                                         pinnedTasks.map((task, index) => {
                                                             return (
-                                                                <PinnedCard key={index} task={task} />
+                                                                <PinnedCard
+                                                                    key={index}
+                                                                    task={task}
+                                                                    setPinnedTasks={setPinnedTasks}
+                                                                    setAlert={setAlert}
+                                                                />
                                                             )
                                                         })
                                                     }

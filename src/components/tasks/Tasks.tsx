@@ -73,12 +73,47 @@ const Tasks = () => {
         return true
     }
 
+    const convertToValue = (type: "REPEAT" | "COMPLETION" | "DATE") => {
+        if (type === "REPEAT") {
+            switch (repeatPeriodFilter) {
+                case "ALL": return 0
+                case "WEEK": return 1
+                case "FORTNIGHT": return 2
+                case "MONTH": return 3
+                default: return 0
+            }
+        } else if (type === "COMPLETION") {
+            switch (completionFilter) {
+                case "ALL": return 0
+                case "YES": return 1
+                case "NO": return 2
+                default: return 0
+            }
+        } else if (type === "DATE") {
+            switch (dateFilter) {
+                case "ALL": return 0
+                case "DATE": return 1
+                case "NODATE": return 2
+                default: return 0
+            }
+        } else {
+            return 0
+        }
+    }
+
     const loadMore = () => {
         setPage(page)
     }
 
     const search = () => {
         loadMore()
+    }
+
+    const resetFilter = () => {
+        setQuery("")
+        setCompletionFilter("ALL")
+        setDateFilter("ALL")
+        setRepeatPeriodFilter("ALL")
     }
 
     return (
@@ -115,6 +150,7 @@ const Tasks = () => {
                             </button>
                             <button
                                 className='bg-warning h-[50px] rounded-md flex-grow min-w-[150px] fc mb-[10px]'
+                                onClick={resetFilter}
                             >
                                 Reset all filters
                             </button>
@@ -123,6 +159,7 @@ const Tasks = () => {
                         <div className='w-full mb-[20px] mt-[10px] flex'>
                             <TabGroup
                                 className="w-[calc(40%-14px)] bg-bgdark rounded-md p-[5px] mr-[20px]"
+                                selectedIndex={convertToValue("REPEAT")}
                                 onChange={(index) => {
                                     switch (index) {
                                         case 0:
@@ -142,7 +179,7 @@ const Tasks = () => {
                                             break;
                                     }
                                 }}>
-                                <TabList className="flex w-full justify-between flex-wrap">
+                                <TabList className="flex w-full justify-between flex-wrap" >
                                     <Tab className="rounded-md py-1 px-3 text-white focus:outline-none data-[selected]:gradient data-[hover]:bg-main/50 data-[selected]:border-w hover:border-w flex-grow min-w-[120px] h-[50px]">All</Tab>
                                     <Tab className="rounded-md py-1 px-3 text-white focus:outline-none data-[selected]:gradient data-[hover]:bg-main/50 data-[selected]:border-w hover:border-w flex-grow min-w-[120px] h-[50px]">Weekly</Tab>
                                     <Tab className="rounded-md py-1 px-3 text-white focus:outline-none data-[selected]:gradient data-[hover]:bg-main/50 data-[selected]:border-w hover:border-w flex-grow min-w-[120px] h-[50px]">Fortnightly</Tab>
@@ -154,6 +191,7 @@ const Tasks = () => {
 
                             <TabGroup
                                 className="w-[calc(30%-12px)] bg-bgdark rounded-md p-[5px]"
+                                selectedIndex={convertToValue("COMPLETION")}
                                 onChange={(index) => {
                                     switch (index) {
                                         case 0:
@@ -181,6 +219,7 @@ const Tasks = () => {
 
                             <TabGroup
                                 className="w-[calc(30%-14px)] bg-bgdark rounded-md p-[5px] ml-[20px]"
+                                selectedIndex={convertToValue("DATE")}
                                 onChange={(index) => {
                                     switch (index) {
                                         case 0:

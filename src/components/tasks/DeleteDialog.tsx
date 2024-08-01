@@ -11,10 +11,11 @@ interface DeleteDialogProps {
     setOpen: React.Dispatch<React.SetStateAction<boolean>>,
     id: string,
     setTasks: React.Dispatch<React.SetStateAction<Task[] | undefined>>,
-    page: number
+    page?: number,
+    setFromRes?: boolean
 }
 
-const DeleteDialog = ({ open, setOpen, id, setTasks, page }: DeleteDialogProps) => {
+const DeleteDialog = ({ open, setOpen, id, setTasks, page, setFromRes = true }: DeleteDialogProps) => {
 
     const { user } = useData()
 
@@ -34,7 +35,7 @@ const DeleteDialog = ({ open, setOpen, id, setTasks, page }: DeleteDialogProps) 
             },
             body: JSON.stringify({
                 id,
-                page
+                page: (page !== undefined ? page : 0)
             })
         }).then((res) => {
             if (!res.ok) {
@@ -44,7 +45,21 @@ const DeleteDialog = ({ open, setOpen, id, setTasks, page }: DeleteDialogProps) 
             } else {
                 res.json().then((data) => {
                     close()
-                    setTasks(data.data)
+                    if (setFromRes === true) {
+                        if (setTasks !== undefined) {
+                            setTasks(data.data)
+                        }
+                    } else {
+                        if (setTasks !== undefined) {
+                            setTasks((prev) => (prev?.filter((pinned, _) => {
+                                if (id === pinned.id) {
+                                    return false
+                                } else {
+                                    return true
+                                }
+                            })))
+                        }
+                    }
                 })
             }
         })
