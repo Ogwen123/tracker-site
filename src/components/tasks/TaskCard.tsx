@@ -13,10 +13,11 @@ interface TaskCardProp {
     task: Task,
     setTasks: React.Dispatch<React.SetStateAction<Task[] | undefined>>,
     page: number,
-    setAlert: React.Dispatch<React.SetStateAction<_Alert>>
+    setAlert: React.Dispatch<React.SetStateAction<_Alert>>,
+    updateTasks: (data: Task[]) => void
 }
 
-const TaskCard = ({ task, setTasks, page, setAlert }: TaskCardProp) => {
+const TaskCard = ({ task, setTasks, page, setAlert, updateTasks }: TaskCardProp) => {
 
     const { user } = useData()
 
@@ -46,7 +47,7 @@ const TaskCard = ({ task, setTasks, page, setAlert }: TaskCardProp) => {
                 })
             } else {
                 res.json().then((data) => {
-                    setTasks(data.data)
+                    updateTasks(data.data)
                 })
             }
         })
@@ -54,7 +55,13 @@ const TaskCard = ({ task, setTasks, page, setAlert }: TaskCardProp) => {
 
     return (
         <div className={'size-[294px] rounded-md  p-[10px] flex flex-col ' + (task.completed ? "gradient" : "bg-bgdark border-w")}>
-            <DeleteDialog open={deleteDialog} setOpen={setDeleteDialog} id={task.id} setTasks={setTasks} page={page} />
+            <DeleteDialog
+                open={deleteDialog}
+                setOpen={setDeleteDialog}
+                id={task.id}
+                setTasks={setTasks}
+                page={page} updateTasks={updateTasks}
+            />
             <div className='flex-grow'>
                 <div className='flex flex-wrap'>
                     <RepeatPeriodBadge type={task.repeat_period} />
@@ -64,7 +71,7 @@ const TaskCard = ({ task, setTasks, page, setAlert }: TaskCardProp) => {
                     }
                 </div>
                 <div className='mt-[10px] text-2xl h-[26px] flex flex-row'>
-                    <div className='flex-grow'>
+                    <div className='flex-grow' title={task.name}>
                         {formatTaskName(task.name)}
                     </div>
                     <div className='flex flex-row items-center'>

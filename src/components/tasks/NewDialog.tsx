@@ -10,13 +10,13 @@ import { useData } from '../../App'
 interface NewDialogProps {
     open: boolean,
     setOpen: React.Dispatch<React.SetStateAction<boolean>>,
-    setTasks?: React.Dispatch<React.SetStateAction<Task[] | undefined>>,
+    updateTasks?: (data: Task[]) => void
     page?: number
 }
 
 const TIME_DETAILS_DEFAULT: TimeDetails = { day: "MONDAY", hour: 12, minute: 0, week: "FIRST" }
 
-const NewDialog = ({ open, setOpen, setTasks, page }: NewDialogProps) => {
+const NewDialog = ({ open, setOpen, updateTasks, page }: NewDialogProps) => {
 
     const { user } = useData()
 
@@ -55,8 +55,8 @@ const NewDialog = ({ open, setOpen, setTasks, page }: NewDialogProps) => {
                     setAlert(["Successfully created task.", "SUCCESS", true])
                     setSubmitting(false)
 
-                    if (setTasks !== undefined) {
-                        setTasks(data.data)
+                    if (updateTasks !== undefined) {
+                        updateTasks(data.data)
                     }
 
                     setTimeout(() => {

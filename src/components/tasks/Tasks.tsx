@@ -15,6 +15,7 @@ const Tasks = () => {
     const { user, width } = useData()
 
     const [tasks, setTasks] = React.useState<Task[]>()
+    const [loadedTasks, setLoadedTasks] = React.useState<Task[]>()
 
     const [query, setQuery] = React.useState<string>("")
     const [repeatPeriodFilter, setRepeatPeriodFilter] = React.useState<RepeatOptions | "ALL">("ALL")
@@ -24,6 +25,8 @@ const Tasks = () => {
     const [newDialog, setNewDialog] = React.useState<boolean>(false)
     const [page, setPage] = React.useState<number>(0)
     const [alert, setAlert] = React.useState<_Alert>(["Alert", "ERROR", false])
+    const [noTasksMessage, setNoTasksMessage] = React.useState<string>("You do not have any tasks. You can use the button in the top left to create new tasks.")
+    const [searchActive, setSearchActive] = React.useState<boolean>(false)
 
     React.useEffect(() => {
         if (user === undefined || tasks !== undefined) return
@@ -45,6 +48,7 @@ const Tasks = () => {
             } else {
                 res.json().then((data) => {
                     setTasks(data.data)
+                    setLoadedTasks(data.data)
                 })
             }
         }).catch(() => {
@@ -105,8 +109,69 @@ const Tasks = () => {
         setPage(page)
     }
 
+    const updateTasks = (data: Task[]) => {
+        if (searchActive === false) {
+            setTasks(data)
+            setLoadedTasks(data)
+        } else if (searchActive === true) {
+
+            console.log("here")
+
+            const ids = tasks?.map((task, _) => (task.id)) || []
+
+            console.log(ids)
+
+            const newTasks: Task[] = []
+
+            data.forEach((task, _) => {
+                console.log(task.id)
+                if (ids.includes(task.id)) {
+                    newTasks.push(task)
+                }
+            })
+
+            setTasks(newTasks)
+            setLoadedTasks(data)
+        }
+    }
+
     const search = () => {
-        loadMore()
+        if (query === "") {
+            setNoTasksMessage("You do not have any tasks. You can use the button in the top left to create new tasks.")
+            setTasks(loadedTasks)
+            setSearchActive(false)
+        } else {
+            fetch(url("tracker") + "tasks/search", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + user.token
+                },
+                body: JSON.stringify({
+                    query
+                })
+            }).then((res) => {
+                if (!res.ok) {
+                    res.json().then((data) => {
+                        setAlert([data.error, "ERROR", true])
+                        setTimeout(() => {
+                            setAlert(alertReset)
+                        }, 5000)
+                    })
+                } else {
+                    setNoTasksMessage("You do not have any tasks that match that query.")
+                    setSearchActive(true)
+                    res.json().then((data) => {
+                        setTasks(data.data)
+                    })
+                }
+            }).catch(() => {
+                setAlert(["An error occured while performing the search. Please try again.", "ERROR", true])
+                setTimeout(() => {
+                    setAlert(alertReset)
+                }, 5000)
+            })
+        }
     }
 
     const resetFilter = () => {
@@ -114,6 +179,8 @@ const Tasks = () => {
         setCompletionFilter("ALL")
         setDateFilter("ALL")
         setRepeatPeriodFilter("ALL")
+        setTasks(loadedTasks)
+        setSearchActive(false)
     }
 
     return (
@@ -141,6 +208,11 @@ const Tasks = () => {
                                 placeholder='Search tasks'
                                 value={query}
                                 onChange={(e) => setQuery(e.target.value)}
+                                onKeyDown={(e) => {
+                                    if (e.code === "Enter") {
+                                        search()
+                                    }
+                                }}
                             />
                             <button
                                 className='bg-main h-[50px] rounded-md flex-grow min-w-[150px] fc mr-[10px] mb-[10px]'
@@ -155,7 +227,7 @@ const Tasks = () => {
                                 Reset all filters
                             </button>
                         </div>
-                        <NewDialog open={newDialog} setOpen={setNewDialog} setTasks={setTasks} page={page} />
+                        <NewDialog open={newDialog} setOpen={setNewDialog} updateTasks={updateTasks} page={page} />
                         <div className='w-full mb-[20px] mt-[10px] flex'>
                             <TabGroup
                                 className="w-[calc(40%-14px)] bg-bgdark rounded-md p-[5px] mr-[20px]"
@@ -255,8 +327,8 @@ const Tasks = () => {
                                 </div>
                                 :
                                 tasks.length === 0 ?
-                                    <div className='task-grid'>
-                                        You do not have any tasks. You can use the button in the top left to create new tasks.
+                                    <div className='text-lg mt-[20px] text-center'>
+                                        {noTasksMessage}
                                     </div>
                                     :
                                     <div className='task-grid'>
@@ -270,6 +342,7 @@ const Tasks = () => {
                                                             setTasks={setTasks}
                                                             page={page}
                                                             setAlert={setAlert}
+                                                            updateTasks={updateTasks}
                                                         />
                                                     )
                                                 }

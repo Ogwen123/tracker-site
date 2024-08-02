@@ -66,7 +66,7 @@ const PinnedCard = ({ task, setPinnedTasks, setAlert }: PinnedCardProps) => {
                 setTasks={setPinnedTasks}
                 setFromRes={false}
             />
-            <div className="w-[80%]">
+            <div className="w-[80%] flex flex-col">
                 <div className='flex flex-wrap'>
                     <RepeatPeriodBadge type={task.repeat_period} />
                     {
@@ -77,9 +77,10 @@ const PinnedCard = ({ task, setPinnedTasks, setAlert }: PinnedCardProps) => {
                 <div className='text-xl'>
                     {task.name}
                 </div>
-                <div className='flex flex-row items-center'>
-                    <BookmarkIcon className={'size-4 hover:fill-yellow-300/50 ' + (task.pinned && "fill-yellow-300 hover:fill-yellow-300")} onClick={pinTask} />
-                    <TrashIcon className={'size-4 hover:fill-error/50'} onClick={() => setDeleteDialog(true)} />
+
+                <div className='flex flex-row items-center mt-auto'>
+                    <BookmarkIcon className={'size-7 hover:fill-yellow-300/50 ' + (task.pinned && "fill-yellow-300 hover:fill-yellow-300")} onClick={pinTask} />
+                    <TrashIcon className={'size-7 hover:fill-error/50'} onClick={() => setDeleteDialog(true)} />
                 </div>
             </div>
             <div className='flex flex-col w-[20%]'>

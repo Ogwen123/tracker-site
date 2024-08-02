@@ -16,11 +16,13 @@
  - [ ] searching tasks
  - [ ] dashboard
  - [ ] pagination
+ - [ ] allow for one time tasks
 
 
 ## small TODOs
- - [ ] add unpin button to the pinned tasks on the home page
- - [ ] add delete button to the pinned tasks on the home page
+ - [x] add unpin button to the pinned tasks on the home page
+ - [x] add delete button to the pinned tasks on the home page
+ - [x] fix icon sizing on the pinned task card
 
 
 ## other features i could add
