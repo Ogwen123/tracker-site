@@ -112,6 +112,7 @@ const Tasks = () => {
     }
 
     const updateTasks = (data: _Task[]) => {
+        loadMore() // ! remove this once loadmore is actually in use
         if (searchActive === false) {
             setTasks(data)
             setLoadedTasks(data)
