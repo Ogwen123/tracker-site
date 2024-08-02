@@ -20,7 +20,7 @@ export type RepeatOptions = "WEEK" | "FORTNIGHT" | "MONTH"
 export type Day = "MONDAY" | "TUESDAY" | "WEDNESDAY" | "THURSDAY" | "FRIDAY" | "SATURDAY" | "SUNDAY"
 export type Week = "FIRST" | "SECOND" | "THIRD" | "FOURTH"
 
-export type Task = {
+export type _Task = {
     id: string,
     name: string,
     repeat_period: RepeatOptions,

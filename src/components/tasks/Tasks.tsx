@@ -5,7 +5,7 @@ import { useData } from '../../App'
 import LoadingWheel from '../LoadingWheel'
 import NewDialog from './NewDialog'
 import { TabGroup, TabList, Tab } from '@headlessui/react'
-import { _Alert, RepeatOptions, Task } from '../../global/types'
+import { _Alert, RepeatOptions, _Task } from '../../global/types'
 import { url } from '../../utils/url'
 import Alert, { alertReset } from '../Alert'
 import TaskCard from './TaskCard'
@@ -14,8 +14,8 @@ const Tasks = () => {
 
     const { user, width } = useData()
 
-    const [tasks, setTasks] = React.useState<Task[]>()
-    const [loadedTasks, setLoadedTasks] = React.useState<Task[]>()
+    const [tasks, setTasks] = React.useState<_Task[]>()
+    const [loadedTasks, setLoadedTasks] = React.useState<_Task[]>()
 
     const [query, setQuery] = React.useState<string>("")
     const [repeatPeriodFilter, setRepeatPeriodFilter] = React.useState<RepeatOptions | "ALL">("ALL")
@@ -56,7 +56,7 @@ const Tasks = () => {
         })
     }, [user])
 
-    const checkFilter = (task: Task) => {
+    const checkFilter = (task: _Task) => {
         if (repeatPeriodFilter === "ALL" && completionFilter === "ALL" && dateFilter === "ALL") {
             return true
         }
@@ -65,6 +65,8 @@ const Tasks = () => {
         if (task.repeat_period !== repeatPeriodFilter && repeatPeriodFilter !== "ALL") {
             return false
         }
+
+        console.log(task.completed, " ", completionFilter)
 
         if ((task.completed === true && completionFilter === "NO") || (task.completed === false && completionFilter === "YES")) {
             return false
@@ -109,7 +111,7 @@ const Tasks = () => {
         setPage(page)
     }
 
-    const updateTasks = (data: Task[]) => {
+    const updateTasks = (data: _Task[]) => {
         if (searchActive === false) {
             setTasks(data)
             setLoadedTasks(data)
@@ -121,7 +123,7 @@ const Tasks = () => {
 
             console.log(ids)
 
-            const newTasks: Task[] = []
+            const newTasks: _Task[] = []
 
             data.forEach((task, _) => {
                 console.log(task.id)

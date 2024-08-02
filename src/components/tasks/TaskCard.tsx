@@ -1,5 +1,5 @@
 import React from 'react'
-import { _Alert, Task } from '../../global/types'
+import { _Alert, _Task } from '../../global/types'
 import RepeatPeriodBadge from './RepeatPeriodBadge'
 import CompletionDateBadge from './CompletionDateBadge'
 import { Link } from 'react-router-dom'
@@ -10,11 +10,11 @@ import { url } from '../../utils/url'
 import { formatTaskName, title } from '../../utils/string'
 
 interface TaskCardProp {
-    task: Task,
-    setTasks: React.Dispatch<React.SetStateAction<Task[] | undefined>>,
+    task: _Task,
+    setTasks: React.Dispatch<React.SetStateAction<_Task[] | undefined>>,
     page: number,
     setAlert: React.Dispatch<React.SetStateAction<_Alert>>,
-    updateTasks: (data: Task[]) => void
+    updateTasks: (data: _Task[]) => void
 }
 
 const TaskCard = ({ task, setTasks, page, setAlert, updateTasks }: TaskCardProp) => {

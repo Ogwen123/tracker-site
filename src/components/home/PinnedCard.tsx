@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { Link } from "react-router-dom"
-import { _Alert, Task } from "../../global/types"
+import { _Alert, _Task } from "../../global/types"
 import CompletionDateBadge from "../tasks/CompletionDateBadge"
 import RepeatPeriodBadge from "../tasks/RepeatPeriodBadge"
 import DeleteDialog from "../tasks/DeleteDialog"
@@ -11,8 +11,8 @@ import { url } from '../../utils/url'
 import { alertReset } from '../Alert'
 
 interface PinnedCardProps {
-    task: Task,
-    setPinnedTasks: React.Dispatch<React.SetStateAction<Task[] | undefined>>,
+    task: _Task,
+    setPinnedTasks: React.Dispatch<React.SetStateAction<_Task[] | undefined>>,
     setAlert: React.Dispatch<React.SetStateAction<_Alert>>
 }
 

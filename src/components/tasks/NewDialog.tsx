@@ -1,7 +1,7 @@
 import { Dialog, DialogBackdrop, DialogPanel, DialogTitle, Select } from '@headlessui/react'
 import React from 'react'
 import Alert, { alertReset } from '../Alert'
-import { _Alert, Day, RepeatOptions, Task, TimeDetails, Week } from '../../global/types'
+import { _Alert, Day, RepeatOptions, _Task, TimeDetails, Week } from '../../global/types'
 import LoadingWheel from '../LoadingWheel'
 import { XMarkIcon } from '@heroicons/react/20/solid'
 import { url } from '../../utils/url'
@@ -10,7 +10,7 @@ import { useData } from '../../App'
 interface NewDialogProps {
     open: boolean,
     setOpen: React.Dispatch<React.SetStateAction<boolean>>,
-    updateTasks?: (data: Task[]) => void
+    updateTasks?: (data: _Task[]) => void
     page?: number
 }
 

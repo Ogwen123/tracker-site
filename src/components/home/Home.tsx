@@ -1,7 +1,7 @@
 import React from 'react'
 import { useData } from '../../App'
 import { ArrowRightEndOnRectangleIcon, BoltIcon, BookmarkIcon, PlusIcon } from '@heroicons/react/20/solid'
-import { _Alert, Task } from '../../global/types'
+import { _Alert, _Task } from '../../global/types'
 import LoadingPinnedCard from './LoadingPinnedCard'
 import { Link } from 'react-router-dom'
 import { url } from '../../utils/url'
@@ -14,7 +14,7 @@ const Home = () => {
 
     const { user, width } = useData()
 
-    const [pinnedTasks, setPinnedTasks] = React.useState<Task[]>()
+    const [pinnedTasks, setPinnedTasks] = React.useState<_Task[]>()
 
     const [loggingOut, setLoggingOut] = React.useState<boolean>(false)
     const [alert, setAlert] = React.useState<_Alert>(["Alert", "ERROR", false])

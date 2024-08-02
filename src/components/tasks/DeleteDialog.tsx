@@ -2,7 +2,7 @@ import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/re
 import { XMarkIcon } from '@heroicons/react/20/solid'
 import React from 'react'
 import Alert from '../Alert'
-import { _Alert, Task } from '../../global/types'
+import { _Alert, _Task } from '../../global/types'
 import { url } from '../../utils/url'
 import { useData } from '../../App'
 
@@ -10,10 +10,10 @@ interface DeleteDialogProps {
     open: boolean,
     setOpen: React.Dispatch<React.SetStateAction<boolean>>,
     id: string,
-    setTasks: React.Dispatch<React.SetStateAction<Task[] | undefined>>,
+    setTasks: React.Dispatch<React.SetStateAction<_Task[] | undefined>>,
     page?: number,
     setFromRes?: boolean,
-    updateTasks?: (data: Task[]) => void
+    updateTasks?: (data: _Task[]) => void
 }
 
 const DeleteDialog = ({ open, setOpen, id, setTasks, page, setFromRes = true, updateTasks }: DeleteDialogProps) => {

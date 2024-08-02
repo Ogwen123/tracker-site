@@ -10,11 +10,11 @@
     - [x] view pinned tasks
     - [ ] view tasks by period
     - [ ] click on a task and see completion data
-    - [ ] calendar view (dashboard)
-    - [ ] view overall completion data (dashboard)
  - [ ] allow tasks to be completed
- - [ ] searching tasks
+ - [x] searching tasks
  - [ ] dashboard
+    - [ ] calendar view
+    - [ ] view overall completion data
  - [ ] pagination
  - [ ] allow for one time tasks
 
