@@ -23,6 +23,7 @@ export default {
         "subtext": "#bebebe",
         "admin": "#2563eb",
         "hyperlink": "#57aeff",
+        "never": "#01f5f6",
         "weekly": "#b1f700",
         "fortnightly": "#f85a01",
         "monthly": "#f60195"

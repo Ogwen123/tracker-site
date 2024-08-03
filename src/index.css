@@ -71,4 +71,7 @@ input[type='number'] {
         @apply border border-solid border-white/5
     }
 
+    .tab {
+        @apply rounded-md py-1 px-3 text-white focus:outline-none data-[selected]:gradient data-[hover]:bg-main/50 data-[selected]:border-w hover:border-w flex-grow min-w-[120px] h-[50px]
+    }
 }

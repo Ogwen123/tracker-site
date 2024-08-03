@@ -16,7 +16,7 @@ export type NavigationBarContext = {
 
 export type _Alert = [string | [string, string], "SUCCESS" | "ERROR", boolean]
 
-export type RepeatOptions = "WEEK" | "FORTNIGHT" | "MONTH"
+export type RepeatOptions = "NEVER" | "WEEK" | "FORTNIGHT" | "MONTH"
 export type Day = "MONDAY" | "TUESDAY" | "WEDNESDAY" | "THURSDAY" | "FRIDAY" | "SATURDAY" | "SUNDAY"
 export type Week = "FIRST" | "SECOND" | "THIRD" | "FOURTH"
 

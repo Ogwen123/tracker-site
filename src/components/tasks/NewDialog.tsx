@@ -109,7 +109,13 @@ const NewDialog = ({ open, setOpen, updateTasks, page }: NewDialogProps) => {
                             />
                             <div className='flex justify-between items-center my-[10px]'>
                                 <div>Repeat every</div>
-                                <Select name="repeat-every" className="bg-bgdark rounded-md p-[10px] min-w-[200px]" value={repeat} onChange={(e) => setRepeat(e.target.value as RepeatOptions)}>
+                                <Select
+                                    name="repeat-every"
+                                    className="bg-bgdark rounded-md p-[10px] min-w-[200px]"
+                                    value={repeat}
+                                    onChange={(e) => setRepeat(e.target.value as RepeatOptions)}
+                                >
+                                    <option value="NEVER">Never</option>
                                     <option value="WEEK">Week</option>
                                     <option value="FORTNIGHT">Fortnight</option>
                                     <option value="MONTH">Month</option>
@@ -123,6 +129,7 @@ const NewDialog = ({ open, setOpen, updateTasks, page }: NewDialogProps) => {
                                     <input
                                         type='checkbox'
                                         checked={dt}
+                                        disabled={repeat === "NEVER"}
                                         onChange={() => setDt(!dt)}
                                         className='accent-main size-5 rounded-md border-w outline-none text-sm'
                                     />

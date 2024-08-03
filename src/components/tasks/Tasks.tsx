@@ -1,6 +1,6 @@
 import React from 'react'
 import LoadingCard from './LoadingCard'
-import { MagnifyingGlassIcon, PlusIcon } from '@heroicons/react/20/solid'
+import { InformationCircleIcon, MagnifyingGlassIcon, PlusIcon } from '@heroicons/react/24/outline'
 import { useData } from '../../App'
 import LoadingWheel from '../LoadingWheel'
 import NewDialog from './NewDialog'
@@ -83,9 +83,10 @@ const Tasks = () => {
         if (type === "REPEAT") {
             switch (repeatPeriodFilter) {
                 case "ALL": return 0
-                case "WEEK": return 1
-                case "FORTNIGHT": return 2
-                case "MONTH": return 3
+                case "NEVER": return 1
+                case "WEEK": return 2
+                case "FORTNIGHT": return 3
+                case "MONTH": return 4
                 default: return 0
             }
         } else if (type === "COMPLETION") {
@@ -233,6 +234,7 @@ const Tasks = () => {
                         <NewDialog open={newDialog} setOpen={setNewDialog} updateTasks={updateTasks} page={page} />
                         <div className='w-full mb-[20px] mt-[10px] flex'>
                             <TabGroup
+                                title="Filter by how often the task repeats."
                                 className="w-[calc(40%-14px)] bg-bgdark rounded-md p-[5px] mr-[20px]"
                                 selectedIndex={convertToValue("REPEAT")}
                                 onChange={(index) => {
@@ -241,12 +243,15 @@ const Tasks = () => {
                                             setRepeatPeriodFilter("ALL")
                                             break;
                                         case 1:
-                                            setRepeatPeriodFilter("WEEK")
+                                            setRepeatPeriodFilter("NEVER")
                                             break;
                                         case 2:
-                                            setRepeatPeriodFilter("FORTNIGHT")
+                                            setRepeatPeriodFilter("WEEK")
                                             break;
                                         case 3:
+                                            setRepeatPeriodFilter("FORTNIGHT")
+                                            break;
+                                        case 4:
                                             setRepeatPeriodFilter("MONTH")
                                             break;
                                         default:
@@ -255,16 +260,21 @@ const Tasks = () => {
                                     }
                                 }}>
                                 <TabList className="flex w-full justify-between flex-wrap" >
-                                    <Tab className="rounded-md py-1 px-3 text-white focus:outline-none data-[selected]:gradient data-[hover]:bg-main/50 data-[selected]:border-w hover:border-w flex-grow min-w-[120px] h-[50px]">All</Tab>
-                                    <Tab className="rounded-md py-1 px-3 text-white focus:outline-none data-[selected]:gradient data-[hover]:bg-main/50 data-[selected]:border-w hover:border-w flex-grow min-w-[120px] h-[50px]">Weekly</Tab>
-                                    <Tab className="rounded-md py-1 px-3 text-white focus:outline-none data-[selected]:gradient data-[hover]:bg-main/50 data-[selected]:border-w hover:border-w flex-grow min-w-[120px] h-[50px]">Fortnightly</Tab>
-                                    <Tab className="rounded-md py-1 px-3 text-white focus:outline-none data-[selected]:gradient data-[hover]:bg-main/50 data-[selected]:border-w hover:border-w flex-grow min-w-[120px] h-[50px]">Monthly</Tab>
+                                    <Tab className="tab">All</Tab>
+                                    <Tab className="tab fc group">
+                                        Never
+                                        <InformationCircleIcon className='size-5 ml-[5px] text-subtext group-data-[selected]:text-hrdark' title="When a task that is set to never repeat is completed it will be removed from this page but you will be able to view it in your dashboard." />
+                                    </Tab>
+                                    <Tab className="tab">Weekly</Tab>
+                                    <Tab className="tab">Fortnightly</Tab>
+                                    <Tab className="tab">Monthly</Tab>
                                 </TabList>
                             </TabGroup>
 
 
 
                             <TabGroup
+                                title="Filter by whether the task is completed."
                                 className="w-[calc(30%-12px)] bg-bgdark rounded-md p-[5px]"
                                 selectedIndex={convertToValue("COMPLETION")}
                                 onChange={(index) => {
@@ -284,15 +294,16 @@ const Tasks = () => {
                                     }
                                 }}>
                                 <TabList className="flex w-full justify-between flex-wrap">
-                                    <Tab className="rounded-md py-1 px-3 text-white focus:outline-none data-[selected]:gradient data-[hover]:bg-main/50 data-[selected]:border-w hover:border-w flex-grow min-w-[120px] h-[50px]">All</Tab>
-                                    <Tab className="rounded-md py-1 px-3 text-white focus:outline-none data-[selected]:gradient data-[hover]:bg-main/50 data-[selected]:border-w hover:border-w flex-grow min-w-[120px] h-[50px]">Completed</Tab>
-                                    <Tab className="rounded-md py-1 px-3 text-white focus:outline-none data-[selected]:gradient data-[hover]:bg-main/50 data-[selected]:border-w hover:border-w flex-grow min-w-[120px] h-[50px]">Not Completed</Tab>
+                                    <Tab className="tab">All</Tab>
+                                    <Tab className="tab">Completed</Tab>
+                                    <Tab className="tab">Not Completed</Tab>
                                 </TabList>
                             </TabGroup>
 
 
 
                             <TabGroup
+                                title="Filter by whether the task has a completion date."
                                 className="w-[calc(30%-14px)] bg-bgdark rounded-md p-[5px] ml-[20px]"
                                 selectedIndex={convertToValue("DATE")}
                                 onChange={(index) => {
@@ -312,7 +323,7 @@ const Tasks = () => {
                                     }
                                 }}>
                                 <TabList className="flex w-full justify-between flex-wrap">
-                                    <Tab className="rounded-md py-1 px-3 text-white focus:outline-none data-[selected]:gradient data-[hover]:bg-main/50 data-[selected]:border-w hover:border-w flex-grow min-w-[120px] h-[50px]">All</Tab>
+                                    <Tab className="tab">All</Tab>
                                     <Tab className="rounded-md py-1 px-3 text-white text-sm focus:outline-none data-[selected]:gradient data-[hover]:bg-main/50 data-[selected]:border-w hover:border-w flex-grow min-w-[120px] h-[50px]">Has Completion Date</Tab>
                                     <Tab className="rounded-md py-1 px-3 text-white text-sm focus:outline-none data-[selected]:gradient data-[hover]:bg-main/50 data-[selected]:border-w hover:border-w flex-grow min-w-[120px] h-[50px]">Doesn't Have Completion Date</Tab>
                                 </TabList>

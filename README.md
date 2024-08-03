@@ -16,7 +16,7 @@
     - [ ] calendar view
     - [ ] view overall completion data
  - [ ] pagination
- - [ ] allow for one time tasks
+ - [x] allow for one time tasks
 
 
 ## small TODOs
