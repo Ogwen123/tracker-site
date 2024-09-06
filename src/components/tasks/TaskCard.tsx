@@ -23,10 +23,6 @@ const TaskCard = ({ task, setTasks, page, setAlert, updateTasks }: TaskCardProp)
 
     const [deleteDialog, setDeleteDialog] = React.useState<boolean>(false)
 
-    const markComplete = () => {
-
-    }
-
     const pinTask = () => {
         if (!user) return
         console.log("here")
@@ -39,6 +35,33 @@ const TaskCard = ({ task, setTasks, page, setAlert, updateTasks }: TaskCardProp)
             body: JSON.stringify({
                 id: task.id,
                 page
+            })
+        }).then((res) => {
+            if (!res.ok) {
+                res.json().then((data) => {
+                    setAlert([data.error, "ERROR", true])
+                })
+            } else {
+                res.json().then((data) => {
+                    updateTasks(data.data)
+                })
+            }
+        })
+    }
+
+    const completeTask = () => {
+        if (!user) return
+        console.log("here")
+        fetch(url("tracker") + "task/complete", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + user.token
+            },
+            body: JSON.stringify({
+                id: task.id,
+                page,
+                return_updated_tasks: true
             })
         }).then((res) => {
             if (!res.ok) {
@@ -122,7 +145,7 @@ const TaskCard = ({ task, setTasks, page, setAlert, updateTasks }: TaskCardProp)
                     View Task
                 </Link>
                 <button
-                    onClick={() => markComplete()}
+                    onClick={() => completeTask()}
                     className='bg-main rounded-md p-[5px] ml-[10px] w-[calc(50%-10px)] min-w-[100px] fc'
                 >
                     {

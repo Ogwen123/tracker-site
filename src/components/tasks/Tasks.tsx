@@ -263,7 +263,7 @@ const Tasks = () => {
                                     <Tab className="tab">All</Tab>
                                     <Tab className="tab fc group">
                                         Never
-                                        <InformationCircleIcon className='size-5 ml-[5px] text-subtext group-data-[selected]:text-hrdark' title="When a task that is set to never repeat is completed it will be removed from this page but you will be able to view it in your dashboard." />
+                                        <InformationCircleIcon className='size-5 ml-[5px] text-white' title="When a task that is set to never repeat is completed it will be removed from this page but you will be able to view it in your dashboard." />
                                     </Tab>
                                     <Tab className="tab">Weekly</Tab>
                                     <Tab className="tab">Fortnightly</Tab>
