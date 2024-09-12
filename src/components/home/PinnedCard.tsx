@@ -55,9 +55,39 @@ const PinnedCard = ({ task, setPinnedTasks, setAlert }: PinnedCardProps) => {
         })
     }
 
+    const completeTask = () => {
+        if (!user) return
+        console.log("here")
+        fetch(url("tracker") + "task/complete", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + user.token
+            },
+            body: JSON.stringify({
+                id: task.id,
+                page: 0,
+                return_updated_tasks: true
+            })
+        }).then((res) => {
+            if (!res.ok) {
+                res.json().then((data) => {
+                    setAlert([data.error, "ERROR", true])
+                    setTimeout(() => {
+                        setAlert(alertReset)
+                    }, 5000)
+                })
+            } else {
+                res.json().then((data) => {
+                    setPinnedTasks(data.data)
+                })
+            }
+        })
+    }
+
     return (
         <div
-            className='bg-bgdark rounded-md p-[10px] flex flex-row w-full border-w flex-grow max-h-[123px] min-h-[123px] mb-[4px]'
+            className={'rounded-md p-[10px] flex flex-row w-full backdrop:flex-grow max-h-[123px] min-h-[123px] mb-[4px] ' + (task.completed ? "darkgradient" : "bg-bgdark border-w")}
         >
             <DeleteDialog
                 open={deleteDialog}
@@ -90,7 +120,10 @@ const PinnedCard = ({ task, setPinnedTasks, setAlert }: PinnedCardProps) => {
                 >
                     View Task
                 </Link>
-                <button className='rounded-md bg-main h-[50%] flex-grow mt-[5px] fc'>
+                <button
+                    className='rounded-md bg-main h-[50%] flex-grow mt-[5px] fc'
+                    onClick={completeTask}
+                >
                     {
                         task.completed ?
                             <div className='text-sm'>
