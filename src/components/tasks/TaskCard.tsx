@@ -61,7 +61,7 @@ const TaskCard = ({ task, setTasks, page, setAlert, updateTasks }: TaskCardProp)
             body: JSON.stringify({
                 id: task.id,
                 page,
-                return_updated_tasks: true
+                return_updated_tasks: "ALL"
             })
         }).then((res) => {
             if (!res.ok) {

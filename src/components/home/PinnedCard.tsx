@@ -67,7 +67,7 @@ const PinnedCard = ({ task, setPinnedTasks, setAlert }: PinnedCardProps) => {
             body: JSON.stringify({
                 id: task.id,
                 page: 0,
-                return_updated_tasks: true
+                return_updated_tasks: "PINNED"
             })
         }).then((res) => {
             if (!res.ok) {

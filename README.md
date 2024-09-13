@@ -8,7 +8,7 @@
  - [ ] view tasks
     - [x] pin tasks
     - [x] view pinned tasks
-    - [ ] view tasks by period
+    - [x] view tasks by period
     - [ ] click on a task and see completion data
  - [ ] allow tasks to be completed
  - [x] searching tasks
