@@ -36,6 +36,23 @@ export type _Task = {
     created_at: string
 }
 
+export type ExpandedTask = {
+    id: string,
+    name: string,
+    repeat_period: RepeatOptions,
+    date_time: boolean,
+    day: Day | null,
+    hour: number | null,
+    minute: number | null,
+    week_of_repeat_period: Week | null,
+    user_id: string,
+    pinned: boolean,
+    completed: boolean,
+    completions: number,
+    created_at: string,
+    threshold: number
+}
+
 export type Details = {
     firstname: string,
     lastname: string,

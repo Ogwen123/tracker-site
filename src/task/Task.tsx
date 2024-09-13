@@ -1,24 +1,38 @@
 import React from 'react'
 
 import { useData } from "../App"
-import { _Alert, _Task } from '../global/types'
+import { _Alert, _Task, ExpandedTask } from '../global/types'
 import { url } from '../utils/url'
 import LoadingWheel from '../components/LoadingWheel'
 import Alert from '../components/Alert'
 import { BookmarkIcon, TrashIcon } from '@heroicons/react/20/solid'
+import { now, secondsToTime } from '../utils/utils'
 
 const Task = () => {
 
     const { user } = useData()
 
-    const [task, setTask] = React.useState<_Task>()
+    const [task, setTask] = React.useState<ExpandedTask>()
 
     const [alert, setAlert] = React.useState<_Alert>(["Alert", "ERROR", false])
     const [deleteDialog, setDeleteDialog] = React.useState<boolean>(false)
+    const [timeRemaining, setTimeRemaining] = React.useState<number>(1)
 
-    const pinTask = () => {
+    React.useEffect(() => {
+        if (task === undefined) return
+        const timerInterval = setInterval(() => {
+            setTimeRemaining((prevTime) => {
+                if (prevTime === 0) {
+                    clearInterval(timerInterval);
+                    return 0;
+                } else {
+                    return task?.threshold - now()
+                }
+            });
+        }, 1000);
 
-    }
+        return () => clearInterval(timerInterval);
+    }, [task]);
 
     React.useEffect(() => {
         if (!user) return
@@ -49,6 +63,10 @@ const Task = () => {
         })
     }, [user])
 
+    const pinTask = () => {
+
+    }
+
     return (
         <div className='page-parent'>
             <Alert
@@ -69,7 +87,7 @@ const Task = () => {
                                 <TrashIcon className={'size-7 hover:fill-error/50'} onClick={() => setDeleteDialog(true)} />
                             </div>
                         </div>
-                        <div className='bg-bgdark rounded-md w-full p-[10px] flex mb-[20px]'>
+                        <div className='bg-bgdark rounded-md w-full p-[10px] flex mb-[20px] flex-col'>
                             {
                                 task.completed ?
                                     <div className='gradienttext text-lg font-bold'>
@@ -83,11 +101,11 @@ const Task = () => {
                             {
                                 task.completed ?
                                     <div className='text-lg font-bold'>
-                                        This task will reset in TIME
+                                        This task will reset in {secondsToTime(timeRemaining)}
                                     </div>
                                     :
                                     <div className='text-lg font-bold'>
-                                        You have TIME to complete this task
+                                        You have {secondsToTime(timeRemaining)} to complete this task
                                     </div>
                             }
                         </div>
