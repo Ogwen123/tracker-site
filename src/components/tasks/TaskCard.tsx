@@ -83,7 +83,8 @@ const TaskCard = ({ task, setTasks, page, setAlert, updateTasks }: TaskCardProp)
                 setOpen={setDeleteDialog}
                 id={task.id}
                 setTasks={setTasks}
-                page={page} updateTasks={updateTasks}
+                page={page}
+                successHandler={updateTasks}
             />
             <div className='flex-grow'>
                 <div className='flex flex-wrap'>

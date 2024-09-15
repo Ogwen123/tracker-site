@@ -3,6 +3,8 @@ export const now = () => {
 }
 
 export const secondsToTime = (secondsRemaining: number) => {
+    if (secondsRemaining < 0) return "LOADING"
+
     const days = Math.floor(secondsRemaining / 86400)
     let remaining = secondsRemaining - (days * 86400)
     const hours = Math.floor(remaining / 3600)

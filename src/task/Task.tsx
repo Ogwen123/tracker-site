@@ -7,6 +7,7 @@ import LoadingWheel from '../components/LoadingWheel'
 import Alert from '../components/Alert'
 import { BookmarkIcon, TrashIcon } from '@heroicons/react/20/solid'
 import { now, secondsToTime } from '../utils/utils'
+import DeleteDialog from '../components/tasks/DeleteDialog'
 
 const Task = () => {
 
@@ -16,7 +17,7 @@ const Task = () => {
 
     const [alert, setAlert] = React.useState<_Alert>(["Alert", "ERROR", false])
     const [deleteDialog, setDeleteDialog] = React.useState<boolean>(false)
-    const [timeRemaining, setTimeRemaining] = React.useState<number>(1)
+    const [timeRemaining, setTimeRemaining] = React.useState<number>(-1)
 
     React.useEffect(() => {
         if (task === undefined) return
@@ -78,6 +79,16 @@ const Task = () => {
             {
                 task !== undefined ?
                     <div>
+                        <DeleteDialog
+                            open={deleteDialog}
+                            setOpen={setDeleteDialog}
+                            id={task.id}
+                            setTasks={() => { }}
+                            useSuccessHandler={true}
+                            successHandler={(_: any) => {
+                                window.location.href = "/tasks"
+                            }}
+                        />
                         <div className='bg-bgdark rounded-md w-full p-[10px] flex mb-[20px]'>
                             <div className='text-2xl'>
                                 {task.name}
@@ -95,19 +106,29 @@ const Task = () => {
                                     </div>
                                     :
                                     <div className='text-error text-lg font-bold'>
-                                        You still have to complete this task.
+                                        You have yet to complete this task.
                                     </div>
                             }
                             {
                                 task.completed ?
-                                    <div className='text-lg font-bold'>
+                                    <div className='text-lg font-bold text-subtext'>
                                         This task will reset in {secondsToTime(timeRemaining)}
                                     </div>
                                     :
-                                    <div className='text-lg font-bold'>
+                                    <div className='text-lg font-bold text-subtext'>
                                         You have {secondsToTime(timeRemaining)} to complete this task
                                     </div>
                             }
+                        </div>
+                        <div className='bg-bgdark rounded-md w-full p-[10px] flex mb-[20px] flex-col'>
+                            <div className='border-w size-[250px] rounded-md border-[2px] flex flex-col'>
+                                <div className='w-full text-center text-subtext p-[10px]'>
+                                    Total Completions
+                                </div>
+                                <div className='text-9xl fc flex-grow'>
+                                    {task.completions}
+                                </div>
+                            </div>
                         </div>
                     </div>
                     :

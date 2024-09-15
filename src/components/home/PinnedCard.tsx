@@ -94,7 +94,7 @@ const PinnedCard = ({ task, setPinnedTasks, setAlert }: PinnedCardProps) => {
                 setOpen={setDeleteDialog}
                 id={task.id}
                 setTasks={setPinnedTasks}
-                setFromRes={false}
+                useSuccessHandler={false}
             />
             <div className="w-[80%] flex flex-col">
                 <div className='flex flex-wrap'>

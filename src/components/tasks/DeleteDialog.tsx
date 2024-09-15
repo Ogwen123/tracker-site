@@ -12,11 +12,11 @@ interface DeleteDialogProps {
     id: string,
     setTasks: React.Dispatch<React.SetStateAction<_Task[] | undefined>>,
     page?: number,
-    setFromRes?: boolean,
-    updateTasks?: (data: _Task[]) => void
+    useSuccessHandler?: boolean,
+    successHandler?: (data: _Task[]) => void
 }
 
-const DeleteDialog = ({ open, setOpen, id, setTasks, page, setFromRes = true, updateTasks }: DeleteDialogProps) => {
+const DeleteDialog = ({ open, setOpen, id, setTasks, page, useSuccessHandler, successHandler }: DeleteDialogProps) => {
 
     const { user } = useData()
 
@@ -46,9 +46,9 @@ const DeleteDialog = ({ open, setOpen, id, setTasks, page, setFromRes = true, up
             } else {
                 res.json().then((data) => {
                     close()
-                    if (setFromRes === true) {
-                        if (updateTasks === undefined) return
-                        updateTasks(data.data)
+                    if (useSuccessHandler === true) {
+                        if (successHandler === undefined) return
+                        successHandler(data.data)
                     } else {
                         setTasks((prev) => (prev?.filter((pinned, _) => {
                             if (id === pinned.id) {
