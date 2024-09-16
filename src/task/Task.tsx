@@ -6,7 +6,7 @@ import { url } from '../utils/url'
 import LoadingWheel from '../components/LoadingWheel'
 import Alert from '../components/Alert'
 import { BookmarkIcon, TrashIcon } from '@heroicons/react/20/solid'
-import { now, secondsToTime } from '../utils/utils'
+import { completionPercent, now, secondsToTime } from '../utils/utils'
 import DeleteDialog from '../components/tasks/DeleteDialog'
 
 const Task = () => {
@@ -101,7 +101,7 @@ const Task = () => {
                         <div className='bg-bgdark rounded-md w-full p-[10px] flex mb-[20px] flex-col'>
                             {
                                 task.completed ?
-                                    <div className='gradienttext text-lg font-bold'>
+                                    <div className='gradienttext text-lg font-bold w-[300px]'>
                                         You have completed this task
                                     </div>
                                     :
@@ -120,7 +120,7 @@ const Task = () => {
                                     </div>
                             }
                         </div>
-                        <div className='bg-bgdark rounded-md w-full p-[10px] flex mb-[20px] flex-col'>
+                        <div className='bg-bgdark rounded-md w-full p-[10px] flex mb-[20px] flex-row justify-evenly'>
                             <div className='border-w size-[250px] rounded-md border-[2px] flex flex-col'>
                                 <div className='w-full text-center text-subtext p-[10px]'>
                                     Total Completions
@@ -129,6 +129,20 @@ const Task = () => {
                                     {task.completions}
                                 </div>
                             </div>
+                            <div className='border-w size-[250px] rounded-md border-[2px] flex flex-col'>
+                                <div className='w-full text-center text-subtext pt-[10px]'>
+                                    Completion Percent
+                                </div>
+                                <div className='w-full text-center text-subtext/70 pb-[10px] text-xs'>
+                                    Total completions as a percentage of total possible completions
+                                </div>
+                                <div className='text-8xl fc flex-grow'>
+                                    {completionPercent(task)}%
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+
                         </div>
                     </div>
                     :

@@ -1,3 +1,5 @@
+import { ExpandedTask } from "../global/types"
+
 export const now = () => {
     return Math.floor(Date.now() / 1000)
 }
@@ -18,4 +20,25 @@ export const secondsToTime = (secondsRemaining: number) => {
     const secondString = (seconds < 10 ? "0" : "") + seconds
 
     return days + ":" + hourString + ":" + minuteString + ":" + secondString
-} 
+}
+
+export const completionPercent = (task: ExpandedTask) => {
+    if (task.repeat_period === "WEEK") {
+        const total_possible = Math.ceil(((Date.now() - Date.parse(task.created_at)) / 1000) / (60 * 60 * 24 * 7))
+        return Math.round((task.completions / total_possible) * 100)
+    } else if (task.repeat_period === "FORTNIGHT") {
+        const total_possible = Math.ceil(((Date.now() - Date.parse(task.created_at)) / 1000) / (60 * 60 * 24 * 7 * 2))
+        return Math.round((task.completions / total_possible) * 100)
+    } else {
+        const createdAt = new Date(task.created_at)
+        const now = new Date()
+
+        let months
+        months = (now.getFullYear() - createdAt.getFullYear()) * 12
+        months -= createdAt.getMonth()
+        months += now.getMonth()
+        months = (months <= 0 ? 0 : months)
+
+        return Math.round((task.completions / months) * 100)
+    }
+}
