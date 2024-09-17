@@ -9,8 +9,9 @@
     - [x] pin tasks
     - [x] view pinned tasks
     - [x] view tasks by period
-    - [ ] click on a task and see completion data
- - [ ] allow tasks to be completed
+    - [x] click on a task and see completion data
+    - [ ] allow editing tasks from the task page
+ - [x] allow tasks to be completed
  - [x] searching tasks
  - [ ] dashboard
     - [ ] calendar view

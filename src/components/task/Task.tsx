@@ -1,13 +1,13 @@
 import React from 'react'
 
-import { useData } from "../App"
-import { _Alert, _Task, ExpandedTask } from '../global/types'
-import { url } from '../utils/url'
-import LoadingWheel from '../components/LoadingWheel'
-import Alert from '../components/Alert'
+import { useData } from "../../App"
+import { _Alert, _Task, ExpandedTask } from '../../global/types'
+import { url } from '../../utils/url'
+import LoadingWheel from '../LoadingWheel'
+import Alert from '../Alert'
 import { BookmarkIcon, TrashIcon } from '@heroicons/react/20/solid'
-import { completionPercent, now, secondsToTime } from '../utils/utils'
-import DeleteDialog from '../components/tasks/DeleteDialog'
+import { completionPercent, now, secondsToTime } from '../../utils/utils'
+import DeleteDialog from '../tasks/DeleteDialog'
 
 const Task = () => {
 
@@ -141,8 +141,42 @@ const Task = () => {
                                 </div>
                             </div>
                         </div>
-                        <div>
-
+                        <div className='bg-bgdark rounded-md w-full p-[10px] mb-[20px]'>
+                            {
+                                task.completions === 0 ?
+                                    <div className='text-xl text-subtext'>
+                                        You do not have any completions to show
+                                    </div>
+                                    :
+                                    <div>
+                                        <div className='text-xl'>
+                                            Last {task.task_completions.length} task completions
+                                        </div>
+                                        <div className='flex flex-col items-center'>
+                                            <div className='flex flex-row justify-evenly text-subtext w-[1000px]'>
+                                                <div className='w-[100px] text-center'>
+                                                    Date Completed
+                                                </div>
+                                                <div className='w-[100px] text-center'>
+                                                    Time Completed
+                                                </div>
+                                            </div>
+                                            {
+                                                task.task_completions.map((completion, index) => {
+                                                    const completed_at = new Date(completion.completed_at * 1000).toISOString()
+                                                    const date = completed_at.split("T")[0]
+                                                    const time = completed_at.split("T")[1].split(".")[0]
+                                                    return (
+                                                        <div key={index} className='flex flex-row justify-evenly rounded-md border-w w-[1000px] mt-[10px]'>
+                                                            <div className='w-[100px] text-center'>{date}</div>
+                                                            <div className='w-[100px] text-center'>{time}</div>
+                                                        </div>
+                                                    )
+                                                })
+                                            }
+                                        </div>
+                                    </div>
+                            }
                         </div>
                     </div>
                     :

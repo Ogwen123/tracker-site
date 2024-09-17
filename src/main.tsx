@@ -10,7 +10,7 @@ import Error from './components/Error.tsx'
 import Register from './components/register/Register.tsx'
 import Tasks from './components/tasks/Tasks.tsx'
 import Dashboard from './components/dashboard/Dashboard.tsx'
-import Task from './task/Task.tsx'
+import Task from './components/task/Task.tsx'
 
 export const navBarExempt = ["/login", "/register"]
 export const publicPaths = ["/login", "/register", "/", ""]

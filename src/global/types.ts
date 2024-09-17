@@ -20,6 +20,12 @@ export type RepeatOptions = "NEVER" | "WEEK" | "FORTNIGHT" | "MONTH"
 export type Day = "MONDAY" | "TUESDAY" | "WEDNESDAY" | "THURSDAY" | "FRIDAY" | "SATURDAY" | "SUNDAY"
 export type Week = "FIRST" | "SECOND" | "THIRD" | "FOURTH"
 
+export type TaskCompletion = {
+    id: string,
+    task_id: string,
+    completed_at: number
+}
+
 export type _Task = {
     id: string,
     name: string,
@@ -50,7 +56,8 @@ export type ExpandedTask = {
     completed: boolean,
     completions: number,
     created_at: string,
-    threshold: number
+    threshold: number,
+    task_completions: TaskCompletion[]
 }
 
 export type Details = {
