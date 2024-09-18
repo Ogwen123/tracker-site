@@ -1,20 +1,21 @@
 import React from 'react'
 
 import { useData } from "../../App"
-import { _Alert, _Task, ExpandedTask } from '../../global/types'
+import { _Alert, _Task, ExtendedTask } from '../../global/types'
 import { url } from '../../utils/url'
 import LoadingWheel from '../LoadingWheel'
 import Alert from '../Alert'
-import { BookmarkIcon, TrashIcon } from '@heroicons/react/20/solid'
+import { BookmarkIcon, PencilSquareIcon, TrashIcon } from '@heroicons/react/20/solid'
 import { completionPercent, formatTime, ISOToTime, now, secondsToTime } from '../../utils/utils'
 import DeleteDialog from '../tasks/DeleteDialog'
 import { title } from '../../utils/string'
+import TaskEditForm from './TaskEditForm'
 
 const Task = () => {
 
     const { user } = useData()
 
-    const [task, setTask] = React.useState<ExpandedTask>()
+    const [task, setTask] = React.useState<ExtendedTask>()
 
     const [alert, setAlert] = React.useState<_Alert>(["Alert", "ERROR", false])
     const [deleteDialog, setDeleteDialog] = React.useState<boolean>(false)
@@ -76,6 +77,10 @@ const Task = () => {
 
     }
 
+    const updateTask = (newData: ExtendedTask) => {
+        newData
+    }
+
     return (
         <div className='page-parent'>
             <Alert
@@ -107,17 +112,16 @@ const Task = () => {
                             </div>
                         </div>
                         <div className='text-2xl text-subtext'>
-                            <div>
-                                Task Information
+                            <div className='flex flex-row justify-between'>
+                                <div>Task Information</div>
+                                <PencilSquareIcon className='size-7' onClick={() => setShowEditForm(true)} />
                             </div>
                             <div className='bg-hr w-full h-[1px] my-[10px]'></div>
                         </div>
                         <div className='bg-bgdark rounded-md w-full p-[10px] flex mb-[20px] flex-col'>
                             {
                                 showEditForm ?
-                                    <div>
-
-                                    </div>
+                                    <TaskEditForm updateTask={updateTask} task={task} setShowEditForm={setShowEditForm} />
                                     :
                                     <div className='flex flex-row flex-wrap'>
                                         <div className='w-1/3'>

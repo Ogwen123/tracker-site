@@ -42,7 +42,7 @@ export type _Task = {
     created_at: string
 }
 
-export type ExpandedTask = {
+export type ExtendedTask = {
     id: string,
     name: string,
     repeat_period: RepeatOptions,

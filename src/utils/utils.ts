@@ -1,4 +1,4 @@
-import { ExpandedTask } from "../global/types"
+import { ExtendedTask } from "../global/types"
 
 export const now = () => {
     return Math.floor(Date.now() / 1000)
@@ -38,7 +38,7 @@ export const ISOToTime = (iso: string) => {
     return date + " " + time
 }
 
-export const completionPercent = (task: ExpandedTask) => {
+export const completionPercent = (task: ExtendedTask) => {
     if (task.repeat_period === "WEEK") {
         const total_possible = Math.ceil(((Date.now() - Date.parse(task.created_at)) / 1000) / (60 * 60 * 24 * 7))
         return Math.round((task.completions / total_possible) * 100)
