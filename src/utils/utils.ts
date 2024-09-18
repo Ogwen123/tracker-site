@@ -4,6 +4,18 @@ export const now = () => {
     return Math.floor(Date.now() / 1000)
 }
 
+export const formatTime = (hours: number, minutes: number, seconds?: number) => {
+    const hourString = (hours < 10 ? "0" : "") + hours
+    const minuteString = (minutes < 10 ? "0" : "") + minutes
+    let secondString = ""
+
+    if (seconds !== undefined) {
+        secondString = (seconds < 10 ? "0" : "") + seconds
+    }
+
+    return hourString + ":" + minuteString + (seconds !== undefined ? ":" + secondString : "")
+}
+
 export const secondsToTime = (secondsRemaining: number) => {
     if (secondsRemaining < 0) return "LOADING"
 
@@ -15,11 +27,15 @@ export const secondsToTime = (secondsRemaining: number) => {
     remaining -= minutes * 60
     const seconds = remaining % 60
 
-    const hourString = (hours < 10 ? "0" : "") + hours
-    const minuteString = (minutes < 10 ? "0" : "") + minutes
-    const secondString = (seconds < 10 ? "0" : "") + seconds
+    return days + ":" + formatTime(hours, minutes, seconds)
+}
 
-    return days + ":" + hourString + ":" + minuteString + ":" + secondString
+export const ISOToTime = (iso: string) => {
+    const date = iso.split("T")[0].replace(/-/g, "/")
+
+    const time = iso.split("T")[1].split(".")[0]
+
+    return date + " " + time
 }
 
 export const completionPercent = (task: ExpandedTask) => {

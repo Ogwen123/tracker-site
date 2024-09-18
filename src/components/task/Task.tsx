@@ -6,8 +6,9 @@ import { url } from '../../utils/url'
 import LoadingWheel from '../LoadingWheel'
 import Alert from '../Alert'
 import { BookmarkIcon, TrashIcon } from '@heroicons/react/20/solid'
-import { completionPercent, now, secondsToTime } from '../../utils/utils'
+import { completionPercent, formatTime, ISOToTime, now, secondsToTime } from '../../utils/utils'
 import DeleteDialog from '../tasks/DeleteDialog'
+import { title } from '../../utils/string'
 
 const Task = () => {
 
@@ -17,6 +18,7 @@ const Task = () => {
 
     const [alert, setAlert] = React.useState<_Alert>(["Alert", "ERROR", false])
     const [deleteDialog, setDeleteDialog] = React.useState<boolean>(false)
+    const [showEditForm, setShowEditForm] = React.useState<boolean>(false)
     const [timeRemaining, setTimeRemaining] = React.useState<number>(-1)
 
     React.useEffect(() => {
@@ -34,6 +36,12 @@ const Task = () => {
 
         return () => clearInterval(timerInterval);
     }, [task]);
+
+    React.useEffect(() => {
+        if (task === undefined) return
+
+
+    })
 
     React.useEffect(() => {
         if (!user) return
@@ -98,6 +106,70 @@ const Task = () => {
                                 <TrashIcon className={'size-7 hover:fill-error/50'} onClick={() => setDeleteDialog(true)} />
                             </div>
                         </div>
+                        <div className='text-2xl text-subtext'>
+                            <div>
+                                Task Information
+                            </div>
+                            <div className='bg-hr w-full h-[1px] my-[10px]'></div>
+                        </div>
+                        <div className='bg-bgdark rounded-md w-full p-[10px] flex mb-[20px] flex-col'>
+                            {
+                                showEditForm ?
+                                    <div>
+
+                                    </div>
+                                    :
+                                    <div className='flex flex-row flex-wrap'>
+                                        <div className='w-1/3'>
+                                            <div className='text-subtext'>Name</div>
+                                            <div>
+                                                {task.name}
+                                            </div>
+                                        </div>
+                                        <div className='w-1/3'>
+                                            <div className='text-subtext'>Repeat Period</div>
+                                            <div>
+                                                {title(task.repeat_period)}
+                                            </div>
+                                        </div>
+                                        <div className='w-1/3'>
+                                            <div className='text-subtext'>Created At</div>
+                                            <div>
+                                                {ISOToTime(task.created_at)}
+                                            </div>
+                                        </div>
+                                        <div className='bg-hr w-full h-[1px] my-[10px]'></div>
+                                        {
+                                            task.date_time &&
+                                            <div className='flex flex-col w-full'>
+                                                <div className='text-subtext text-sm mb-[15px]'>You aim to complete this task at: </div>
+                                                <div className='flex flex-row flex-wrap w-full'>
+
+                                                    <div className='w-1/3'>
+                                                        <div className='text-subtext'>Week of Repeat Period</div>
+                                                        <div>
+                                                            {title(task.week_of_repeat_period as string)}
+                                                        </div>
+                                                    </div>
+                                                    <div className='w-1/3'>
+                                                        <div className='text-subtext'>Day</div>
+                                                        <div>
+                                                            {title(task.day as string)}
+                                                        </div>
+                                                    </div>
+                                                    <div className='w-1/3'>
+                                                        <div className='text-subtext'>Time</div>
+                                                        <div>
+                                                            {formatTime(task.hour!, task.minute!)}
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                            }
+                        </div>
                         <div className='bg-bgdark rounded-md w-full p-[10px] flex mb-[20px] flex-col'>
                             {
                                 task.completed ?
@@ -119,6 +191,12 @@ const Task = () => {
                                         You have {secondsToTime(timeRemaining)} to complete this task
                                     </div>
                             }
+                        </div>
+                        <div className='text-2xl text-subtext'>
+                            <div>
+                                Task Completion data
+                            </div>
+                            <div className='bg-hr w-full h-[1px] my-[10px]'></div>
                         </div>
                         <div className='bg-bgdark rounded-md w-full p-[10px] flex mb-[20px] flex-row justify-evenly'>
                             <div className='border-w size-[250px] rounded-md border-[2px] flex flex-col'>
@@ -158,7 +236,7 @@ const Task = () => {
                                                     Date Completed
                                                 </div>
                                                 <div className='w-[100px] text-center'>
-                                                    Time Completed
+                                                    Time Completed (UTC)
                                                 </div>
                                             </div>
                                             {
@@ -177,6 +255,9 @@ const Task = () => {
                                         </div>
                                     </div>
                             }
+                        </div>
+                        <div>
+
                         </div>
                     </div>
                     :
