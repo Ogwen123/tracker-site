@@ -39,12 +39,6 @@ const Task = () => {
     }, [task]);
 
     React.useEffect(() => {
-        if (task === undefined) return
-
-
-    })
-
-    React.useEffect(() => {
         if (!user) return
 
         const splitPathname = location.pathname.split("/")
@@ -62,7 +56,7 @@ const Task = () => {
         }).then((res) => {
             if (!res.ok) {
                 res.json().then((data) => {
-                    setAlert([data.error, "ERROR", true])
+                    setAlert([data.error instanceof Array ? data.error[0] : data.error, "ERROR", true])
                 })
             } else {
                 res.json().then((data) => {
@@ -70,6 +64,9 @@ const Task = () => {
                     console.log(data.data)
                 })
             }
+        }).catch((err) => {
+            console.error(err)
+            setAlert(["An unknown error occured whilst fetching the tasks data.", "ERROR", true])
         })
     }, [user])
 
@@ -78,7 +75,7 @@ const Task = () => {
     }
 
     const updateTask = (newData: ExtendedTask) => {
-        newData
+        setTask(newData)
     }
 
     return (
@@ -142,10 +139,11 @@ const Task = () => {
                                                 {ISOToTime(task.created_at)}
                                             </div>
                                         </div>
-                                        <div className='bg-hr w-full h-[1px] my-[10px]'></div>
+
                                         {
                                             task.date_time &&
                                             <div className='flex flex-col w-full'>
+                                                <div className='bg-hr w-full h-[1px] my-[10px]'></div>
                                                 <div className='text-subtext text-sm mb-[15px]'>You aim to complete this task at: </div>
                                                 <div className='flex flex-row flex-wrap w-full'>
 

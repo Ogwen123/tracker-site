@@ -31,6 +31,19 @@ const NewDialog = ({ open, setOpen, updateTasks, page }: NewDialogProps) => {
         setSubmitting(true)
         const dtData = (dt === true ? timeDetails : {})
 
+        if (dt) {
+            if (timeDetails.hour > 24 || timeDetails.hour < 0) {
+                setAlert(["Enter a suitable value for the hour.", "ERROR", true])
+                setSubmitting(false)
+                return
+            }
+            if (timeDetails.minute > 60 || timeDetails.minute < 0) {
+                setAlert(["Enter a suitable value for the minute.", "ERROR", true])
+                setSubmitting(false)
+                return
+            }
+        }
+
         fetch(url("tracker") + "task/new", {
             method: "POST",
             headers: {
@@ -142,7 +155,7 @@ const NewDialog = ({ open, setOpen, updateTasks, page }: NewDialogProps) => {
                                             <div>
                                                 Day
                                             </div>
-                                            <select
+                                            <Select
                                                 name="repeat-every"
                                                 className="bg-bg rounded-md p-[10px] min-w-[200px]"
                                                 value={timeDetails.day}
@@ -155,7 +168,7 @@ const NewDialog = ({ open, setOpen, updateTasks, page }: NewDialogProps) => {
                                                 <option value="FRIDAY">Friday</option>
                                                 <option value="SATURDAY">Saturday</option>
                                                 <option value="SUNDAY">Sunday</option>
-                                            </select>
+                                            </Select>
                                         </div>
                                         <div className='h-[1px] w-full bg-hrdark my-[10px]'></div>
                                         <div className='flex items-center justify-between'>
