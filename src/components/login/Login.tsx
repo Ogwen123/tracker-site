@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import { useData } from '../../App'
 import { url } from '../../utils/url'
 import { _Alert } from '../../global/types'
