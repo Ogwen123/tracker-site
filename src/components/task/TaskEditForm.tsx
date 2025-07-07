@@ -137,7 +137,7 @@ const TaskEditForm = ({ updateTask, task, setShowEditForm }: TaskEditFormProps) 
                                 setTaskBuffer((prevTask) => ({ ...prevTask, week_of_repeat_period: "FIRST" }))
                             }
                         }}
-                        className='accent-main size-5 rounded-md border-w outline-none text-sm'
+                        className='accent-main size-5 rounded-md white-border outline-none text-sm'
                     />
                 </div>
                 {

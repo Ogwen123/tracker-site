@@ -1,6 +1,4 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 @font-face {
     font-family: "poppins";
@@ -10,8 +8,8 @@
 body {
     margin: 0;
     font-family: "poppins", sans-serif;
-    background-color: #22272e;
-    color: white;
+    background-color: #2d3336;
+    color: var(--color-text)
 }
 
 .shadow-3xl {
@@ -32,46 +30,54 @@ input[type='number'] {
     grid-template-columns: repeat(auto-fill, 290px); /* 290 is the max width to allow 6 cards in a row on a 1920 screen with the scroll bar */
 }
 
-@layer components {
-    .fc {
-        @apply flex items-center justify-center
-    }
-    .form-input {
-        @apply rounded-md border-w p-[10px] my-[5px] bg-bgdark border-solid border-2 border-bgdark focus:border-solid focus:border-2 focus:border-main focus:outline-none
-    }
-    .button {
-        @apply bg-main w-full rounded-lg p-[10px] my-[5px] hover:bg-maindark
-    }
-
-    .page-parent {
-        @apply min-h-[calc(100vh-110px)] p-[20px]
-    }
-
-    .page-full {
-        @apply h-[100vh]
-    }
-
-    .action-button {
-        @apply bg-bg rounded-lg h-full w-[60px] fc mr-[10px]
-    }
-
-    .gradient {
-        @apply bg-[#d8b5ff] bg-gradient-to-br from-[#d8b5ff] to-[#1eae98]
-    }
-
-    .darkgradient {
-        @apply bg-[#a390c6] bg-gradient-to-br from-[#a390c6] to-[#197b6d]
-    }
-
-    .gradienttext {
-        @apply bg-gradient-to-r from-[#d8b5ff] to-[#1eae98] text-transparent bg-clip-text
-    }
-
-    .border-w {
-        @apply border border-solid border-white/5
-    }
-
-    .tab {
-        @apply rounded-md py-1 px-3 text-white focus:outline-none data-[selected]:gradient data-[hover]:bg-main/50 data-[selected]:border-w hover:border-w flex-grow min-w-[120px] h-[50px]
-    }
+@theme {
+    --color-text: #f7eacb;
+    --color-bg: #2d3336;
+    --color-bgdark: #292e32;
+    --color-main: #906378;
+    --color-maindark: #5d3f4d;
+    --color-secondary: #6ca37a;
+    --color-secondarydark: #4a6f53;
+    --color-success: #778e54;
+    --color-error: #a1484a;
+    --color-errordark: #6d3132;
+    --color-warning: #ee9849;
+    --color-warningdark: #bb7739;
+    --color-hr: #444c56;
+    --color-hrdark: #292e36;
+    --color-subtext: #bebebe;
+    --color-admin: #388084;
+    --color-hyperlink: #57aeff;
+    --color-never: #9ed9d4;
+    --color-weekly: #def198;
+    --color-fortnightly: #f7ba65;
+    --color-monthly: #da86a5;
 }
+
+@utility fc {
+    @apply flex items-center justify-center
+}
+@utility white-border {
+    @apply border border-solid border-white/5
+}
+@utility card-border {
+    @apply border-[2px] border-solid border-main
+}
+@utility form-input {
+    @apply rounded-md white-border p-[10px] my-[5px] bg-bgdark border-solid border-2 border-bgdark focus:border-solid focus:border-2 focus:border-main focus:outline-none
+}
+@utility button {
+    @apply bg-main w-full rounded-lg p-[10px] my-[5px] hover:bg-maindark
+}
+@utility page-parent {
+    @apply min-h-[calc(100vh-110px)] p-[20px]
+}
+@utility page-full {
+    @apply h-[100vh]
+}
+@utility action-button {
+    @apply bg-bg rounded-lg h-full w-[60px] fc mr-[10px]
+}
+@utility tab {
+    @apply rounded-md py-1 px-3 text-white border border-bgdark focus:outline-none data-[selected]:bg-secondary data-[hover]:bg-secondarydark data-[selected]:white-border flex-grow min-w-[120px] h-[50px]
+}    

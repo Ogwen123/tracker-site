@@ -77,7 +77,7 @@ const TaskCard = ({ task, setTasks, page, setAlert, updateTasks }: TaskCardProp)
     }
 
     return (
-        <div className={'size-[294px] rounded-md  p-[10px] flex flex-col ' + (task.completed ? "darkgradient" : "bg-bgdark border-w")}>
+        <div className={'size-[294px] rounded-md bg-bgdark p-[10px] flex flex-col ' + (task.completed ? "border-[2px] border-secondary" : "white-border")}>
             <DeleteDialog
                 open={deleteDialog}
                 setOpen={setDeleteDialog}

@@ -87,7 +87,7 @@ const PinnedCard = ({ task, setPinnedTasks, setAlert }: PinnedCardProps) => {
 
     return (
         <div
-            className={'rounded-md p-[10px] flex flex-row w-full backdrop:flex-grow max-h-[123px] min-h-[123px] mb-[4px] ' + (task.completed ? "darkgradient" : "bg-bgdark border-w")}
+            className={'rounded-md p-[10px] flex flex-row w-full backdrop:flex-grow max-h-[123px] min-h-[123px] mb-[4px] ' + (task.completed ? "darkgradient" : "bg-bgdark white-border")}
         >
             <DeleteDialog
                 open={deleteDialog}

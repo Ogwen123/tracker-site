@@ -9,6 +9,7 @@ import { _Alert, RepeatOptions, _Task } from '../../global/types'
 import { url } from '../../utils/url'
 import Alert, { alertReset } from '../Alert'
 import TaskCard from './TaskCard'
+import { ShowGuest, ShowUser } from '../../utils/Auth'
 
 const Tasks = () => {
 
@@ -51,7 +52,8 @@ const Tasks = () => {
                     setLoadedTasks(data.data)
                 })
             }
-        }).catch(() => {
+        }).catch((e) => {
+            console.error(e)
             setAlert(["An error occured while fetching your tasks. Please try reloading the page.", "ERROR", true])
         })
     }, [user])
@@ -195,180 +197,180 @@ const Tasks = () => {
                 show={alert[2]}
                 title={alert[0] instanceof Array ? alert[0][0] : undefined}
             />
-            {
-                user ?
-                    <div>
-                        <div className='flex flex-row flex-wrap'>
-                            <button
-                                className='bg-main h-[50px] rounded-md flex-grow min-w-[150px] fc mr-[10px] hover:gradient mb-[10px]'
-                                onClick={() => {
-                                    setNewDialog(true)
-                                }}
-                            >
-                                <PlusIcon className='size-7' /> Add task
-                            </button>
-                            <input
-                                className={'form-input min-w-[350px] h-[50px] my-0 mr-[10px] mb-[10px] ' + (width < 800 ? "flex-grow" : "w-[70%]")}
-                                placeholder='Search tasks'
-                                value={query}
-                                onChange={(e) => setQuery(e.target.value)}
-                                onKeyDown={(e) => {
-                                    if (e.code === "Enter") {
-                                        search()
-                                    }
-                                }}
-                            />
-                            <button
-                                className='bg-main h-[50px] rounded-md flex-grow min-w-[150px] fc mr-[10px] mb-[10px]'
-                                onClick={search}
-                            >
-                                <MagnifyingGlassIcon className='size-7' />
-                            </button>
-                            <button
-                                className='bg-warning h-[50px] rounded-md flex-grow min-w-[150px] fc mb-[10px]'
-                                onClick={resetFilter}
-                            >
-                                Reset all filters
-                            </button>
-                        </div>
-                        <NewDialog open={newDialog} setOpen={setNewDialog} updateTasks={updateTasks} page={page} />
-                        <div className='w-full mb-[20px] mt-[10px] flex'>
-                            <TabGroup
-                                title="Filter by how often the task repeats."
-                                className="w-[calc(40%-14px)] bg-bgdark rounded-md p-[5px] mr-[20px]"
-                                selectedIndex={convertToValue("REPEAT")}
-                                onChange={(index) => {
-                                    switch (index) {
-                                        case 0:
-                                            setRepeatPeriodFilter("ALL")
-                                            break;
-                                        case 1:
-                                            setRepeatPeriodFilter("NEVER")
-                                            break;
-                                        case 2:
-                                            setRepeatPeriodFilter("WEEK")
-                                            break;
-                                        case 3:
-                                            setRepeatPeriodFilter("FORTNIGHT")
-                                            break;
-                                        case 4:
-                                            setRepeatPeriodFilter("MONTH")
-                                            break;
-                                        default:
-                                            setRepeatPeriodFilter("ALL")
-                                            break;
-                                    }
-                                }}>
-                                <TabList className="flex w-full justify-between flex-wrap" >
-                                    <Tab className="tab">All</Tab>
-                                    <Tab className="tab fc group">
-                                        Never
-                                        <InformationCircleIcon className='size-5 ml-[5px] text-white' title="When a task that is set to never repeat is completed it will be removed from this page but you will be able to view it in your dashboard." />
-                                    </Tab>
-                                    <Tab className="tab">Weekly</Tab>
-                                    <Tab className="tab">Fortnightly</Tab>
-                                    <Tab className="tab">Monthly</Tab>
-                                </TabList>
-                            </TabGroup>
+            <ShowUser>
+                <div>
+                    <div className='flex flex-row flex-wrap'>
+                        <button
+                            className='bg-main h-[50px] rounded-md flex-grow min-w-[150px] fc mr-[10px] hover:bg-maindark mb-[10px]'
+                            onClick={() => {
+                                setNewDialog(true)
+                            }}
+                        >
+                            <PlusIcon className='size-7' /> Add task
+                        </button>
+                        <input
+                            className={'form-input min-w-[350px] h-[50px] my-0 mr-[10px] mb-[10px] ' + (width < 800 ? "flex-grow" : "w-[70%]")}
+                            placeholder='Search tasks'
+                            value={query}
+                            onChange={(e) => setQuery(e.target.value)}
+                            onKeyDown={(e) => {
+                                if (e.code === "Enter") {
+                                    search()
+                                }
+                            }}
+                        />
+                        <button
+                            className='bg-main h-[50px] rounded-md flex-grow min-w-[150px] fc mr-[10px] mb-[10px]'
+                            onClick={search}
+                        >
+                            <MagnifyingGlassIcon className='size-7' />
+                        </button>
+                        <button
+                            className='bg-warning h-[50px] rounded-md flex-grow min-w-[150px] fc mb-[10px]'
+                            onClick={resetFilter}
+                        >
+                            Reset all filters
+                        </button>
+                    </div>
+                    <NewDialog open={newDialog} setOpen={setNewDialog} updateTasks={updateTasks} page={page} />
+                    <div className='w-full mb-[20px] mt-[10px] flex'>
+                        <TabGroup
+                            title="Filter by how often the task repeats."
+                            className="w-[calc(40%-14px)] bg-bgdark rounded-md p-[5px] mr-[20px]"
+                            selectedIndex={convertToValue("REPEAT")}
+                            onChange={(index) => {
+                                switch (index) {
+                                    case 0:
+                                        setRepeatPeriodFilter("ALL")
+                                        break;
+                                    case 1:
+                                        setRepeatPeriodFilter("NEVER")
+                                        break;
+                                    case 2:
+                                        setRepeatPeriodFilter("WEEK")
+                                        break;
+                                    case 3:
+                                        setRepeatPeriodFilter("FORTNIGHT")
+                                        break;
+                                    case 4:
+                                        setRepeatPeriodFilter("MONTH")
+                                        break;
+                                    default:
+                                        setRepeatPeriodFilter("ALL")
+                                        break;
+                                }
+                            }}>
+                            <TabList className="flex w-full justify-between flex-wrap" >
+                                <Tab className="tab">All</Tab>
+                                <Tab className="tab fc group">
+                                    Never
+                                    <InformationCircleIcon className='size-5 ml-[5px] text-white' title="When a task that is set to never repeat is completed it will be removed from this page but you will be able to view it in your dashboard." />
+                                </Tab>
+                                <Tab className="tab">Weekly</Tab>
+                                <Tab className="tab">Fortnightly</Tab>
+                                <Tab className="tab">Monthly</Tab>
+                            </TabList>
+                        </TabGroup>
 
 
 
-                            <TabGroup
-                                title="Filter by whether the task is completed."
-                                className="w-[calc(30%-12px)] bg-bgdark rounded-md p-[5px]"
-                                selectedIndex={convertToValue("COMPLETION")}
-                                onChange={(index) => {
-                                    switch (index) {
-                                        case 0:
-                                            setCompletionFilter("ALL")
-                                            break;
-                                        case 1:
-                                            setCompletionFilter("YES")
-                                            break;
-                                        case 2:
-                                            setCompletionFilter("NO")
-                                            break;
-                                        default:
-                                            setCompletionFilter("ALL")
-                                            break;
-                                    }
-                                }}>
-                                <TabList className="flex w-full justify-between flex-wrap">
-                                    <Tab className="tab">All</Tab>
-                                    <Tab className="tab">Completed</Tab>
-                                    <Tab className="tab">Not Completed</Tab>
-                                </TabList>
-                            </TabGroup>
+                        <TabGroup
+                            title="Filter by whether the task is completed."
+                            className="w-[calc(30%-12px)] bg-bgdark rounded-md p-[5px]"
+                            selectedIndex={convertToValue("COMPLETION")}
+                            onChange={(index) => {
+                                switch (index) {
+                                    case 0:
+                                        setCompletionFilter("ALL")
+                                        break;
+                                    case 1:
+                                        setCompletionFilter("YES")
+                                        break;
+                                    case 2:
+                                        setCompletionFilter("NO")
+                                        break;
+                                    default:
+                                        setCompletionFilter("ALL")
+                                        break;
+                                }
+                            }}>
+                            <TabList className="flex w-full justify-between flex-wrap">
+                                <Tab className="tab">All</Tab>
+                                <Tab className="tab disabled:hover:bg-white/5 disabled:bg-white/5 disabled:text-subtext" disabled={repeatPeriodFilter === "NEVER"}>Completed</Tab>
+                                <Tab className="tab">Not Completed</Tab>
+                            </TabList>
+                        </TabGroup>
 
 
 
-                            <TabGroup
-                                title="Filter by whether the task has a completion date."
-                                className="w-[calc(30%-14px)] bg-bgdark rounded-md p-[5px] ml-[20px]"
-                                selectedIndex={convertToValue("DATE")}
-                                onChange={(index) => {
-                                    switch (index) {
-                                        case 0:
-                                            setDateFilter("ALL")
-                                            break;
-                                        case 1:
-                                            setDateFilter("DATE")
-                                            break;
-                                        case 2:
-                                            setDateFilter("NODATE")
-                                            break;
-                                        default:
-                                            setDateFilter("ALL")
-                                            break;
-                                    }
-                                }}>
-                                <TabList className="flex w-full justify-between flex-wrap">
-                                    <Tab className="tab">All</Tab>
-                                    <Tab className="rounded-md py-1 px-3 text-white text-sm focus:outline-none data-[selected]:gradient data-[hover]:bg-main/50 data-[selected]:border-w hover:border-w flex-grow min-w-[120px] h-[50px]">Has Completion Date</Tab>
-                                    <Tab className="rounded-md py-1 px-3 text-white text-sm focus:outline-none data-[selected]:gradient data-[hover]:bg-main/50 data-[selected]:border-w hover:border-w flex-grow min-w-[120px] h-[50px]">Doesn't Have Completion Date</Tab>
-                                </TabList>
-                            </TabGroup>
-                        </div>
-                        {
-                            tasks === undefined ?
-                                <div className='task-grid'>
-                                    <LoadingCard />
-                                    <LoadingCard />
-                                    <LoadingCard />
-                                    <LoadingCard />
-                                    <LoadingCard />
-                                    <LoadingCard />
+                        <TabGroup
+                            title="Filter by whether the task has a completion date."
+                            className="w-[calc(30%-14px)] bg-bgdark rounded-md p-[5px] ml-[20px]"
+                            selectedIndex={convertToValue("DATE")}
+                            onChange={(index) => {
+                                switch (index) {
+                                    case 0:
+                                        setDateFilter("ALL")
+                                        break;
+                                    case 1:
+                                        setDateFilter("DATE")
+                                        break;
+                                    case 2:
+                                        setDateFilter("NODATE")
+                                        break;
+                                    default:
+                                        setDateFilter("ALL")
+                                        break;
+                                }
+                            }}>
+                            <TabList className="flex w-full justify-between flex-wrap">
+                                <Tab className="tab">All</Tab>
+                                <Tab className="rounded-md py-1 px-3 text-sm focus:outline-none data-[selected]:bg-secondary data-[hover]:bg-secondarydark data-[selected]:white-border hover:white-border flex-grow min-w-[120px] h-[50px]">Has Completion Date</Tab>
+                                <Tab className="rounded-md py-1 px-3 text-sm focus:outline-none data-[selected]:bg-secondary data-[hover]:bg-secondarydark data-[selected]:white-border hover:white-border flex-grow min-w-[120px] h-[50px]">Doesn't Have Completion Date</Tab>
+                            </TabList>
+                        </TabGroup>
+                    </div>
+                    {
+                        tasks === undefined ?
+                            <div className='task-grid'>
+                                <LoadingCard />
+                                <LoadingCard />
+                                <LoadingCard />
+                                <LoadingCard />
+                                <LoadingCard />
+                                <LoadingCard />
+                            </div>
+                            :
+                            tasks.length === 0 ?
+                                <div className='text-lg mt-[20px] text-center'>
+                                    {noTasksMessage}
                                 </div>
                                 :
-                                tasks.length === 0 ?
-                                    <div className='text-lg mt-[20px] text-center'>
-                                        {noTasksMessage}
-                                    </div>
-                                    :
-                                    <div className='task-grid'>
-                                        {
-                                            tasks.map((task, index) => {
-                                                if (checkFilter(task) === true) {
-                                                    return (
-                                                        <TaskCard
-                                                            key={index}
-                                                            task={task}
-                                                            setTasks={setTasks}
-                                                            page={page}
-                                                            setAlert={setAlert}
-                                                            updateTasks={updateTasks}
-                                                        />
-                                                    )
-                                                }
+                                <div className='task-grid'>
+                                    {
+                                        tasks.map((task, index) => {
+                                            if (checkFilter(task) === true) {
+                                                return (
+                                                    <TaskCard
+                                                        key={index}
+                                                        task={task}
+                                                        setTasks={setTasks}
+                                                        page={page}
+                                                        setAlert={setAlert}
+                                                        updateTasks={updateTasks}
+                                                    />
+                                                )
+                                            }
 
-                                            })
-                                        }
-                                    </div>
-                        }
-                    </div>
-                    :
-                    <LoadingWheel />
-            }
+                                        })
+                                    }
+                                </div>
+                    }
+                </div>
+            </ShowUser>
+            <ShowGuest>
+                <LoadingWheel />
+            </ShowGuest>
         </div>
     )
 }

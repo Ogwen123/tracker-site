@@ -184,80 +184,94 @@ const Task = () => {
                                     </div>
                             }
                             {
-                                task.completed ?
-                                    <div className='text-lg font-bold text-subtext'>
-                                        This task will reset in {secondsToTime(timeRemaining)}
-                                    </div>
+                                task.repeat_period !== "NEVER" ?
+                                    task.completed ?
+                                        <div className='text-lg font-bold text-subtext'>
+                                            This task will reset in <span className='text-main'>{secondsToTime(timeRemaining)}</span>
+                                        </div>
+                                        :
+                                        <div className='text-lg font-bold text-subtext'>
+                                            You have <span className='text-main'>{secondsToTime(timeRemaining)}</span> to complete this task
+                                        </div>
                                     :
-                                    <div className='text-lg font-bold text-subtext'>
-                                        You have {secondsToTime(timeRemaining)} to complete this task
-                                    </div>
+                                    null
                             }
                         </div>
-                        <div className='text-2xl text-subtext'>
-                            <div>
-                                Task Completion data
+                        {
+                            task.repeat_period !== "NEVER" &&
+                            <div className='text-2xl text-subtext'>
+                                <div>
+                                    Task Completion data
+                                </div>
+                                <div className='bg-hr w-full h-[1px] my-[10px]'></div>
                             </div>
-                            <div className='bg-hr w-full h-[1px] my-[10px]'></div>
-                        </div>
-                        <div className='bg-bgdark rounded-md w-full p-[10px] flex mb-[20px] flex-row justify-evenly'>
-                            <div className='border-w size-[250px] rounded-md border-[2px] flex flex-col'>
-                                <div className='w-full text-center text-subtext p-[10px]'>
-                                    Total Completions
-                                </div>
-                                <div className='text-9xl fc flex-grow'>
-                                    {task.completions}
-                                </div>
-                            </div>
-                            <div className='border-w size-[250px] rounded-md border-[2px] flex flex-col'>
-                                <div className='w-full text-center text-subtext pt-[10px]'>
-                                    Completion Percent
-                                </div>
-                                <div className='w-full text-center text-subtext/70 pb-[10px] text-xs'>
-                                    Total completions as a percentage of total possible completions
-                                </div>
-                                <div className='text-8xl fc flex-grow'>
-                                    {completionPercent(task)}%
-                                </div>
-                            </div>
-                        </div>
-                        <div className='bg-bgdark rounded-md w-full p-[10px] mb-[20px]'>
-                            {
-                                task.completions === 0 ?
-                                    <div className='text-xl text-subtext'>
-                                        You do not have any completions to show
+                        }
+                        {
+                            task.repeat_period !== "NEVER" &&
+
+                            <div className='bg-bgdark rounded-md w-full p-[10px] flex mb-[20px] flex-row justify-evenly'>
+                                <div className='white-border size-[250px] rounded-md border-[2px] flex flex-col'>
+                                    <div className='w-full text-center text-subtext p-[10px]'>
+                                        Total Completions
                                     </div>
-                                    :
-                                    <div>
-                                        <div className='text-xl'>
-                                            Last {task.task_completions.length} task completions
+                                    <div className='text-9xl fc flex-grow'>
+                                        {task.completions}
+                                    </div>
+                                </div>
+                                <div className='white-border size-[250px] rounded-md border-[2px] flex flex-col'>
+                                    <div className='w-full text-center text-subtext pt-[10px]'>
+                                        Completion Percent
+                                    </div>
+                                    <div className='w-full text-center text-subtext/70 pb-[10px] text-xs'>
+                                        Total completions as a percentage of total possible completions
+                                    </div>
+                                    <div className='text-8xl fc flex-grow'>
+                                        {completionPercent(task)}%
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        {
+                            task.repeat_period !== "NEVER" &&
+
+                            <div className='bg-bgdark rounded-md w-full p-[10px] mb-[20px]'>
+                                {
+                                    task.completions === 0 ?
+                                        <div className='text-xl text-subtext'>
+                                            You do not have any completions to show
                                         </div>
-                                        <div className='flex flex-col items-center'>
-                                            <div className='flex flex-row justify-evenly text-subtext w-[1000px]'>
-                                                <div className='w-[100px] text-center'>
-                                                    Date Completed
-                                                </div>
-                                                <div className='w-[100px] text-center'>
-                                                    Time Completed (UTC)
-                                                </div>
+                                        :
+                                        <div>
+                                            <div className='text-xl'>
+                                                Last {task.task_completions.length} task completions
                                             </div>
-                                            {
-                                                task.task_completions.map((completion, index) => {
-                                                    const completed_at = new Date(completion.completed_at * 1000).toISOString()
-                                                    const date = completed_at.split("T")[0]
-                                                    const time = completed_at.split("T")[1].split(".")[0]
-                                                    return (
-                                                        <div key={index} className='flex flex-row justify-evenly rounded-md border-w w-[1000px] mt-[10px]'>
-                                                            <div className='w-[100px] text-center'>{date}</div>
-                                                            <div className='w-[100px] text-center'>{time}</div>
-                                                        </div>
-                                                    )
-                                                })
-                                            }
+                                            <div className='flex flex-col items-center'>
+                                                <div className='flex flex-row justify-evenly text-subtext w-[1000px]'>
+                                                    <div className='w-[100px] text-center'>
+                                                        Date Completed
+                                                    </div>
+                                                    <div className='w-[100px] text-center'>
+                                                        Time Completed (UTC)
+                                                    </div>
+                                                </div>
+                                                {
+                                                    task.task_completions.map((completion, index) => {
+                                                        const completed_at = new Date(completion.completed_at * 1000).toISOString()
+                                                        const date = completed_at.split("T")[0]
+                                                        const time = completed_at.split("T")[1].split(".")[0]
+                                                        return (
+                                                            <div key={index} className='flex flex-row justify-evenly rounded-md white-border w-[1000px] mt-[10px]'>
+                                                                <div className='w-[100px] text-center'>{date}</div>
+                                                                <div className='w-[100px] text-center'>{time}</div>
+                                                            </div>
+                                                        )
+                                                    })
+                                                }
+                                            </div>
                                         </div>
-                                    </div>
-                            }
-                        </div>
+                                }
+                            </div>
+                        }
                         <div>
 
                         </div>

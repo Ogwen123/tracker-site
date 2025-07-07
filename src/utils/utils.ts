@@ -27,15 +27,11 @@ export const secondsToTime = (secondsRemaining: number) => {
     remaining -= minutes * 60
     const seconds = remaining % 60
 
-    return days + ":" + formatTime(hours, minutes, seconds)
+    return days + " days " + hours + " hours " + minutes + " minutes and " + seconds + " seconds"
 }
 
 export const ISOToTime = (iso: string) => {
-    const date = iso.split("T")[0].replace(/-/g, "/")
-
-    const time = iso.split("T")[1].split(".")[0]
-
-    return date + " " + time
+    return new Date(iso).toLocaleString().replace(",", "")
 }
 
 export const completionPercent = (task: ExtendedTask) => {

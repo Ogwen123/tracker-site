@@ -70,7 +70,7 @@ const DeleteDialog = ({ open, setOpen, id, setTasks, page, useSuccessHandler, su
                 <div className="flex min-h-full items-center justify-center p-4">
                     <DialogPanel
                         transition
-                        className="w-full max-w-[600px] rounded-xl bg-error/50 border-w p-6 duration-200 ease-out data-[closed]:transform-[scale(95%)] data-[closed]:opacity-0"
+                        className="w-full max-w-[600px] rounded-xl bg-error/50 white-border p-6 duration-200 ease-out data-[closed]:transform-[scale(95%)] data-[closed]:opacity-0"
                     >
                         <Alert
                             content={alert[0] instanceof Array ? alert[0][1] : alert[0]}

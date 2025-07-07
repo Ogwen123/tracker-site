@@ -2,7 +2,7 @@
 const LoadingPinnedCard = () => {
     return (
         <div
-            className='bg-bgdark rounded-md p-[10px] flex flex-row w-full border-w'
+            className='bg-bgdark rounded-md p-[10px] flex flex-row w-full white-border'
         >
             <div className="w-[80%]">
                 <div className='h-[20px] w-[30%] bg-white/5 animate-pulse'></div>

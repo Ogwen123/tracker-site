@@ -71,7 +71,7 @@ const Register = () => {
 
     return (
         <div className='gradient page-full fc overflow-y-auto'>
-            <div className='w-[calc(40%-40px)] min-w-[320px] bg-bg bg-opacity-90 border border-white/5 rounded-md shadow-3xl flex flex-col items-center justify-center pb-[80px] pt-[60px]'>
+            <div className='w-[calc(40%-40px)] min-w-[320px] bg-bg/90 card-border rounded-md shadow-3xl flex flex-col items-center justify-center pb-[80px] pt-[60px]'>
 
                 <Alert
                     content={alert[0] instanceof Array ? alert[0][1] : alert[0]}

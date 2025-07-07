@@ -100,7 +100,7 @@ const NewDialog = ({ open, setOpen, updateTasks, page }: NewDialogProps) => {
                 <div className="flex min-h-full items-center justify-center p-4">
                     <DialogPanel
                         transition
-                        className="w-full max-w-[1000px] rounded-xl bg-bg/95 border-w p-6 duration-200 ease-out data-[closed]:transform-[scale(95%)] data-[closed]:opacity-0"
+                        className="w-full max-w-[1000px] rounded-xl bg-bg/95 white-border p-6 duration-200 ease-out data-[closed]:transform-[scale(95%)] data-[closed]:opacity-0"
                     >
                         <Alert
                             content={alert[0] instanceof Array ? alert[0][1] : alert[0]}
@@ -144,7 +144,7 @@ const NewDialog = ({ open, setOpen, updateTasks, page }: NewDialogProps) => {
                                         checked={dt}
                                         disabled={repeat === "NEVER"}
                                         onChange={() => setDt(!dt)}
-                                        className='accent-main size-5 rounded-md border-w outline-none text-sm'
+                                        className='accent-main size-5 rounded-md white-border outline-none text-sm'
                                     />
                                 </div>
                                 {

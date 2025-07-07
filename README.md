@@ -18,14 +18,16 @@
     - [ ] view overall completion data
  - [ ] pagination
  - [x] allow for one time tasks
-
+ - link tracker
+   - [ ] add links
+   - [ ] add tags
+   - [ ] add classes
+   - [ ] delete links
+   - [ ] edit links
+   - [ ] mark links as done
 
 ## small TODOs
  - [x] add unpin button to the pinned tasks on the home page
  - [x] add delete button to the pinned tasks on the home page
  - [x] fix icon sizing on the pinned task card
 
-
-## other features i could add
- - [ ] shopping list
- - [ ] sharing tasks with other people

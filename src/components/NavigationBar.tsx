@@ -63,7 +63,7 @@ const NavigationBar = ({ context }: NavigationBarProps) => {
                 <MenuItems
                     transition
                     anchor="bottom end"
-                    className="w-[300px] mt-[30px] rounded-md border border-white/5 bg-bg/75 transition duration-100 ease-out [--anchor-gap:var(--spacing-1)] focus:outline-none data-[closed]:scale-95 data-[closed]:opacity-0"
+                    className="w-[300px] mt-[30px] rounded-md border border-white/5 bg-bg/98 transition duration-100 ease-out [--anchor-gap:var(--spacing-1)] focus:outline-none data-[closed]:scale-95 data-[closed]:opacity-0"
                 >
                     {
                         context.user === undefined ?
