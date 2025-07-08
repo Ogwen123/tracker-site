@@ -7,7 +7,7 @@ import LoadingWheel from '../LoadingWheel'
 import Alert from '../Alert'
 import { BookmarkIcon, PencilSquareIcon, TrashIcon } from '@heroicons/react/20/solid'
 import { completionPercent, formatTime, ISOToTime, now, secondsToTime } from '../../utils/utils'
-import DeleteDialog from '../tasks/DeleteDialog'
+import DeleteDialog from '../tasks/DeleteTaskDialog'
 import { title } from '../../utils/string'
 import TaskEditForm from './TaskEditForm'
 

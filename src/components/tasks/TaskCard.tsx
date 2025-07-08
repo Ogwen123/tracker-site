@@ -4,7 +4,7 @@ import RepeatPeriodBadge from './RepeatPeriodBadge'
 import CompletionDateBadge from './CompletionDateBadge'
 import { Link } from 'react-router-dom'
 import { BookmarkIcon, TrashIcon } from '@heroicons/react/20/solid'
-import DeleteDialog from './DeleteDialog'
+import DeleteDialog from './DeleteTaskDialog'
 import { useData } from '../../App'
 import { url } from '../../utils/url'
 import { formatTaskName, title } from '../../utils/string'
@@ -110,7 +110,7 @@ const TaskCard = ({ task, setTasks, page, setAlert, updateTasks }: TaskCardProp)
                     {
                         task.date_time === true ?
                             <div className='flex flex-col mt-[20px]'>
-                                <div className='text-lg text-white'>
+                                <div className='text-lg text-text'>
                                     Completion Date and Time:
                                 </div>
                                 <div className=''>
@@ -128,7 +128,7 @@ const TaskCard = ({ task, setTasks, page, setAlert, updateTasks }: TaskCardProp)
                             </div>
                             :
                             <div className='flex flex-col mt-[20px]'>
-                                <div className='text-lg text-white'>
+                                <div className='text-lg text-text'>
                                     Completion Date and Time:
                                 </div>
                                 <div className='fc text-xl mt-[20px]'>

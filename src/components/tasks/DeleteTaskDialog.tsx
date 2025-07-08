@@ -79,7 +79,7 @@ const DeleteDialog = ({ open, setOpen, id, setTasks, page, useSuccessHandler, su
                             title={alert[0] instanceof Array ? alert[0][0] : undefined}
                         />
                         <DialogTitle as="h3" className="flex items-center">
-                            <div className='font-bold text-white text-2xl'>Delete Task</div>
+                            <div className='font-bold text-text text-2xl'>Delete Task</div>
                             <XMarkIcon className='ml-auto size-9 fill-white hover:fill-white/75 hover:cursor-pointer' onClick={() => close()} />
                         </DialogTitle>
                         <div className='my-[40px]'>

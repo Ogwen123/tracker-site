@@ -79,5 +79,5 @@ input[type='number'] {
     @apply bg-bg rounded-lg h-full w-[60px] fc mr-[10px]
 }
 @utility tab {
-    @apply rounded-md py-1 px-3 text-white border border-bgdark focus:outline-none data-[selected]:bg-secondary data-[hover]:bg-secondarydark data-[selected]:white-border flex-grow min-w-[120px] h-[50px]
+    @apply rounded-md py-1 px-3 text-text border border-bgdark focus:outline-none data-[selected]:bg-secondary data-[hover]:bg-secondarydark data-[selected]:white-border flex-grow min-w-[120px] h-[50px]
 }    

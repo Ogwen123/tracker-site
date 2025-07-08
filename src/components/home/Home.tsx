@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 import { url } from '../../utils/url'
 import LoadingWheel from '../LoadingWheel'
 import Alert, { alertReset } from '../Alert'
-import NewDialog from '../tasks/NewDialog'
+import NewTaskDialog from '../tasks/NewTaskDialog'
 import PinnedCard from './PinnedCard'
 import { ShowGuest, ShowUser } from '../../utils/Auth'
 
@@ -170,7 +170,7 @@ const Home = () => {
                         </div>
                     </div>
                 </div>
-                <NewDialog open={newDialog} setOpen={setNewDialog} />
+                <NewTaskDialog open={newDialog} setOpen={setNewDialog} />
 
             </ShowUser>
             <ShowGuest>
@@ -178,13 +178,13 @@ const Home = () => {
                     <div className='gradienttext text-8xl'>
                         Tracker
                     </div>
-                    <div className='my-[20px] text-white/80'>
+                    <div className='my-[20px] text-text/80'>
                         Track weekly and monthly tasks easily with this free-to-use tool.
                     </div>
                     <div className='bg-hr h-[3px] w-[400px]'></div>
-                    <div className='text-white/80 flex flex-col items-center my-[20px]'>
+                    <div className='text-text/80 flex flex-col items-center my-[20px]'>
                         <Link reloadDocument to="/login">
-                            <button className='bg-main hover:bg-maindark rounded-full p-[10px] m-[5px] w-[235px] text-white'>
+                            <button className='bg-main hover:bg-maindark rounded-full p-[10px] m-[5px] w-[235px] text-text'>
                                 Login
                             </button>
                         </Link>
@@ -192,7 +192,7 @@ const Home = () => {
                             to an existing account or
                         </div>
                         <Link reloadDocument to="/register">
-                            <button className='bg-main hover:bg-maindark rounded-full p-[10px] m-[5px] w-[235px] text-white'>
+                            <button className='bg-main hover:bg-maindark rounded-full p-[10px] m-[5px] w-[235px] text-text'>
                                 Sign Up
                             </button>
                         </Link>

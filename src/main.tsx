@@ -11,6 +11,7 @@ import Register from './components/register/Register.tsx'
 import Tasks from './components/tasks/Tasks.tsx'
 import Dashboard from './components/dashboard/Dashboard.tsx'
 import Task from './components/task/Task.tsx'
+import Links from './components/links/Links.tsx'
 
 export const navBarExempt = ["/login", "/register"]
 export const publicPaths = ["/login", "/register", "/", ""]
@@ -23,6 +24,7 @@ const router = createBrowserRouter(
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/tasks" element={<Tasks />} />
+      <Route path="/links" element={<Links />} />
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/task/:id" element={<Task />} />
       <Route path="*" element={<NotFound />} />

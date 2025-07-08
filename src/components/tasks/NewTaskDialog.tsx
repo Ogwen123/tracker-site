@@ -16,7 +16,7 @@ interface NewDialogProps {
 
 const TIME_DETAILS_DEFAULT: TimeDetails = { day: "MONDAY", hour: 12, minute: 0, week: "FIRST" }
 
-const NewDialog = ({ open, setOpen, updateTasks, page }: NewDialogProps) => {
+const NewTaskDialog = ({ open, setOpen, updateTasks, page }: NewDialogProps) => {
 
     const { user } = useData()
 
@@ -109,7 +109,7 @@ const NewDialog = ({ open, setOpen, updateTasks, page }: NewDialogProps) => {
                             title={alert[0] instanceof Array ? alert[0][0] : undefined}
                         />
                         <DialogTitle as="h3" className="flex items-center">
-                            <div className='font-bold text-white text-2xl'>New Task</div>
+                            <div className='font-bold text-text text-2xl'>New Task</div>
                             <XMarkIcon className='ml-auto size-9 fill-white hover:fill-white/75 hover:cursor-pointer' onClick={() => close()} />
                         </DialogTitle>
                         <div className='my-[40px]'>
@@ -253,4 +253,4 @@ const NewDialog = ({ open, setOpen, updateTasks, page }: NewDialogProps) => {
     )
 }
 
-export default NewDialog
+export default NewTaskDialog

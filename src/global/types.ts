@@ -74,3 +74,19 @@ export type TimeDetails = {
     minute: number,
     week: Week
 }
+
+export type Link = {
+    id: string,
+    link: string,
+    note: string,
+    class_id: string,
+    type_id: string
+}
+
+export type LinkType = {
+    id: string,
+    name: string,
+    colour: string
+}
+
+export type LinkClass = LinkType

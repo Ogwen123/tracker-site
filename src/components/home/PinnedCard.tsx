@@ -4,7 +4,7 @@ import { Link } from "react-router-dom"
 import { _Alert, _Task } from "../../global/types"
 import CompletionDateBadge from "../tasks/CompletionDateBadge"
 import RepeatPeriodBadge from "../tasks/RepeatPeriodBadge"
-import DeleteDialog from "../tasks/DeleteDialog"
+import DeleteDialog from "../tasks/DeleteTaskDialog"
 import { BookmarkIcon, TrashIcon } from '@heroicons/react/20/solid'
 import { useData } from '../../App'
 import { url } from '../../utils/url'
@@ -87,7 +87,7 @@ const PinnedCard = ({ task, setPinnedTasks, setAlert }: PinnedCardProps) => {
 
     return (
         <div
-            className={'rounded-md p-[10px] flex flex-row w-full backdrop:flex-grow max-h-[123px] min-h-[123px] mb-[4px] ' + (task.completed ? "darkgradient" : "bg-bgdark white-border")}
+            className={'rounded-md p-[10px] flex flex-row w-full backdrop:flex-grow max-h-[123px] min-h-[123px] mb-[4px] ' + (task.completed ? "border-[2px] border-secondary" : "white-border")}
         >
             <DeleteDialog
                 open={deleteDialog}
