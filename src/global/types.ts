@@ -86,7 +86,7 @@ export type Link = {
 export type LinkType = {
     id: string,
     name: string,
-    colour: string
+    colour: number
 }
 
 export type LinkClass = LinkType

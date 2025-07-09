@@ -7,6 +7,7 @@ import { _Alert, Link, LinkClass, LinkType } from '../../global/types'
 import { useData } from '../../App'
 import { url } from '../../utils/url'
 import Alert, { alertReset } from '../Alert'
+import LoadingWheel from '../LoadingWheel'
 
 const Links = () => {
     const { user } = useData()
@@ -15,9 +16,9 @@ const Links = () => {
     const [manageDialog, setManageDialog] = React.useState<boolean>(false)
     const [alert, setAlert] = React.useState<_Alert>(["Alert", "ERROR", false])
 
-    const [links, setLinks] = React.useState<Link[]>([])
-    const [types, setTypes] = React.useState<LinkType[]>([])
-    const [classes, setClasses] = React.useState<LinkClass[]>([])
+    const [links, setLinks] = React.useState<Link[]>()
+    const [types, setTypes] = React.useState<LinkType[]>()
+    const [classes, setClasses] = React.useState<LinkClass[]>()
 
     React.useEffect(() => {
         if (user === undefined) return
@@ -77,16 +78,19 @@ const Links = () => {
                     filtering options go here
                 </div>
                 <NewLinkDialog open={newDialog} setOpen={setNewDialog} />
-                <ManageTypesAndClassesDialog
-                    open={manageDialog}
-                    setOpen={setManageDialog}
-                    types={types}
-                    setTypes={setTypes}
-                    classes={classes}
-                    setClasses={setClasses}
-                />
+                {
+                    classes !== undefined && types !== undefined &&
+                    <ManageTypesAndClassesDialog
+                        open={manageDialog}
+                        setOpen={setManageDialog}
+                        types={types}
+                        setTypes={setTypes}
+                        classes={classes}
+                        setClasses={setClasses}
+                    />
+                }
                 <div>
-                    {
+                    {links !== undefined ?
                         links.map((link, index) => {
                             return (
                                 <div key={index}>
@@ -94,6 +98,8 @@ const Links = () => {
                                 </div>
                             )
                         })
+                        :
+                        <LoadingWheel />
                     }
                 </div>
             </ShowUser>

@@ -54,3 +54,5 @@ export const completionPercent = (task: ExtendedTask) => {
         return Math.round((task.completions / months) * 100)
     }
 }
+
+export const colourMap = ["#fbf8cc", "#fde4cf", "#ffcfd2", "#f1c0e8", "#cfbaf0", "#a3c4f3", "#90dbf4", "#8eecf5", "#98f5e1", "#b9fbc0"]
