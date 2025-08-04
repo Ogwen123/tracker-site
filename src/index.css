@@ -9,16 +9,16 @@ body {
     margin: 0;
     font-family: "poppins", sans-serif;
     background-color: #2d3336;
-    color: var(--color-text)
+    color: var(--color-text);
 }
 
 .shadow-3xl {
-        box-shadow: 0 0 10px 10px rgb(0 0 0 / 0.15);
-    }
+    box-shadow: 0 0 10px 10px rgb(0 0 0 / 0.15);
+}
 
-input[type='number']::-webkit-outer-spin-button,
-input[type='number']::-webkit-inner-spin-button,
-input[type='number'] {
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"] {
     -webkit-appearance: none;
     margin: 0;
     -moz-appearance: textfield !important;
@@ -27,7 +27,10 @@ input[type='number'] {
 .task-grid {
     display: grid;
     grid-gap: 20px;
-    grid-template-columns: repeat(auto-fill, 290px); /* 290 is the max width to allow 6 cards in a row on a 1920 screen with the scroll bar */
+    grid-template-columns: repeat(
+        auto-fill,
+        290px
+    ); /* 290 is the max width to allow 6 cards in a row on a 1920 screen with the scroll bar */
 }
 
 @theme {
@@ -55,29 +58,29 @@ input[type='number'] {
 }
 
 @utility fc {
-    @apply flex items-center justify-center
+    @apply flex items-center justify-center;
 }
 @utility white-border {
-    @apply border border-solid border-white/5
+    @apply border border-solid border-white/5;
 }
 @utility card-border {
-    @apply border-[2px] border-solid border-main
+    @apply border-[2px] border-solid border-main;
 }
 @utility form-input {
-    @apply rounded-md white-border p-[10px] my-[5px] bg-bgdark border-solid border-2 border-bgdark focus:border-solid focus:border-2 focus:border-main focus:outline-none
+    @apply rounded-md white-border p-[10px] my-[5px] bg-bgdark border-solid border-2 border-bgdark focus:border-solid focus:border-2 focus:border-main focus:outline-none;
 }
 @utility button {
-    @apply bg-main w-full rounded-lg p-[10px] my-[5px] hover:bg-maindark
+    @apply bg-main w-full rounded-lg p-[10px] my-[5px] hover:bg-maindark;
 }
 @utility page-parent {
-    @apply min-h-[calc(100vh-110px)] p-[20px]
+    @apply min-h-[calc(100vh-110px)] p-[20px];
 }
 @utility page-full {
-    @apply h-[100vh]
+    @apply h-[100vh];
 }
 @utility action-button {
-    @apply bg-bg rounded-lg h-full w-[60px] fc mr-[10px]
+    @apply bg-bg rounded-lg h-full w-[60px] fc mr-[10px];
 }
 @utility tab {
-    @apply rounded-md py-1 px-3 text-text border border-bgdark focus:outline-none data-[selected]:bg-secondary data-[hover]:bg-secondarydark data-[selected]:white-border flex-grow min-w-[120px] h-[50px]
-}    
+    @apply rounded-md py-1 px-3 text-text border border-bgdark focus:outline-none data-[selected]:bg-secondary data-[hover]:bg-secondarydark data-[selected]:white-border flex-grow min-w-[120px] h-[50px];
+}
